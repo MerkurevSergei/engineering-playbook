@@ -4,6 +4,10 @@ This section turns unclear business needs into engineering-ready problem stateme
 
 ## Artifacts
 
+- [Choosing the first requirements artifact](01-choosing-the-first-requirements-artifact.md)
+- [Tailoring the business requirements baseline](02-tailoring-the-business-requirements-baseline.md)
+- [Business Requirements Specification template](03-business-requirements-specification-template.md)
+- [Working with BRS deltas](04-working-with-brs-deltas.md)
 - [System boundary checklist](system-boundary-checklist.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 

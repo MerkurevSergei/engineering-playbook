@@ -112,6 +112,22 @@ This is a requirements-level dependency map, not a mandatory waterfall. ISO/IEC/
 
 The BRS also does not have to be one Word document. It can be a logically organized set of linked pages, models, registers, and tables if the required content is identifiable, accessible, versioned, and traceable.
 
+## Tailoring the Baseline
+
+Use the ISO BRS as a coverage model, not as a command to reproduce every heading for every change. Tailoring determines how much controlled information the initiative needs based on its scope, uncertainty, number of affected parties, consequences of error, and assurance obligations.
+
+| Situation | Practical Form | Required Control |
+|---|---|---|
+| Small governed change | Record a [BRS Delta](04-working-with-brs-deltas.md) against an existing approved baseline | Preserve the source, state the changed objective, rule, boundary, or assumption, and identify the governing baseline |
+| Typical initiative | Complete the core BRS template as one readable page | Cover the problem, outcomes, scope, stakeholders, terms, target behavior, rules, scenarios, constraints, questions, and approval |
+| Complex or high-assurance initiative | Add the applicable conditional modules and an explicit ISO coverage review | Record evidence or a justified `Not applicable` decision for every applicable concern and maintain formal traceability |
+
+Start with one page. Extract a glossary, rule catalog, scenario set, decision table, process model, or lifecycle model only when it is reused, has a separate owner or approval cycle, needs a specialized tool, or makes the baseline easier to review. The result remains one logical BRS even when its information is stored across linked artifacts.
+
+For a large baseline, use business capabilities as the navigation layer: keep local owners, rules, scenarios, models, and questions in Capability Specifications, and record shared behavior once as a cross-cutting concern.
+
+Do not present a reduced profile as an industry artifact called `BRS-lite`. State the local tailoring decision and the reasons for it. The [tailoring guide](02-tailoring-the-business-requirements-baseline.md) explains capability decomposition, model selection, and physical splitting.
+
 ## ISO and Wiegers Mapping
 
 Use the ISO BRS as the coverage model and Vision and Scope as a usability overlay.
@@ -162,12 +178,12 @@ A first controlled baseline is ready for review when:
 - [ ] Relevant business processes, policies, and rules are named and traceable.
 - [ ] Assumptions, dependencies, constraints, risks, and operational modes are separated.
 - [ ] The high-level operational concept explains the intended direction without becoming a technical design.
-- [ ] Every non-applicable BRS section has a reason or a link to the governing artifact.
+- [ ] Every applicable BRS concern is covered directly, linked to a governing artifact, or explicitly marked not applicable when assurance requires a coverage review.
 - [ ] Open questions have owners and decision dates.
 - [ ] The business owner can approve, reject, or reshape the initiative using this baseline.
 - [ ] Downstream stakeholder and solution requirements can trace back to a business objective, rule, or constraint.
 
-Use the [Business Requirements Specification template](business-requirements-specification-template.md) to apply this checklist.
+Use the [Business Requirements Specification template](03-business-requirements-specification-template.md) to apply this checklist.
 
 ## Example
 
@@ -229,7 +245,9 @@ A concise explanation:
 
 ## Related Topics
 
-- [Business Requirements Specification template](business-requirements-specification-template.md)
+- [Business Requirements Specification template](03-business-requirements-specification-template.md)
+- [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md)
+- [Working with BRS Deltas](04-working-with-brs-deltas.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [System boundary checklist](system-boundary-checklist.md)
 - [Product and Requirements index](README.md)
