@@ -248,6 +248,7 @@ A concise explanation:
 - [Business Requirements Specification template](03-business-requirements-specification-template.md)
 - [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
+- [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [System boundary checklist](system-boundary-checklist.md)
 - [Product and Requirements index](README.md)

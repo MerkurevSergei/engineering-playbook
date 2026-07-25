@@ -8,6 +8,7 @@ This section turns unclear business needs into engineering-ready problem stateme
 - [Tailoring the business requirements baseline](02-tailoring-the-business-requirements-baseline.md)
 - [Business Requirements Specification template](03-business-requirements-specification-template.md)
 - [Working with BRS deltas](04-working-with-brs-deltas.md)
+- [Discovering and building a business requirements baseline](05-discovering-and-building-a-business-requirements-baseline.md)
 - [System boundary checklist](system-boundary-checklist.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 

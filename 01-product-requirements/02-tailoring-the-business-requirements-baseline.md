@@ -335,6 +335,7 @@ Later architecture work decides where the policy is evaluated, how data is obtai
 - [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
 - [Business Requirements Specification template](03-business-requirements-specification-template.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
+- [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [System boundary checklist](system-boundary-checklist.md)
 - [Product and Requirements index](README.md)

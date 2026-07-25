@@ -1,0 +1,779 @@
+# Discovering and Building a Business Requirements Baseline
+
+> Status: Draft
+> Area: product-requirements
+
+## Problem
+
+A Business Requirements Specification is organized for review and approval, not for the order in which knowledge is discovered.
+
+If analysts fill the template from top to bottom, several problems appear:
+
+- stakeholder statements are copied directly into the baseline before they are confirmed or analyzed;
+- stakeholder needs are mistaken for business rules;
+- scope is fixed before the current state and affected parties are understood;
+- a proposed screen, service, or data field becomes the assumed solution;
+- detailed stakeholder, solution, and transition requirements are mixed into the BRS;
+- rules, scenarios, terms, and constraints are discovered in isolation even though they refine one another;
+- the document is declared complete before its value can be measured.
+
+Teams need a repeatable discovery workflow that turns source evidence into a controlled BRS while preserving requirements levels, business ownership, traceability, and iteration.
+
+## Core Idea
+
+Run discovery and specification as two connected loops:
+
+```text
+Discovery:
+sources -> questions -> elicitation
+        -> raw results -> confirmation -> analysis
+
+Specification:
+problem and need -> outcome and value -> scope
+                 -> capabilities
+                 -> rules, scenarios, and constraints
+                 -> verification -> validation -> approval
+```
+
+The loops are not phases in a waterfall. A capability workshop can reveal a missing stakeholder, a scenario can expose a new rule, and a downstream requirement can reveal a gap in the business baseline.
+
+Do not treat an interview statement as an approved requirement. Move information through explicit states:
+
+```text
+Raw -> Confirmed -> Analyzed -> Accepted -> Baselined
+          |             |
+          |             +-> Rejected
+          |             +-> Deferred
+          |             +-> Open question
+          |
+          +-> Disputed
+```
+
+The BRS is the approved business-level result of this work. Interview notes, observations, research findings, detailed stakeholder requirements, solution requirements, transition plans, and design decisions remain distinct linked information.
+
+## Sources and Standards
+
+| Source | Contribution | Use Here |
+|---|---|---|
+| [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) and the [IEEE record](https://standards.ieee.org/ieee/29148/6937/) | Business or mission analysis, stakeholder needs and requirements definition, system requirements definition, and BRS, StRS, SyRS, and SRS content | Normative requirements-engineering process and information-item context |
+| [BABOK Guide v3](https://www.iiba.org/knowledgehub/business-analysis-body-of-knowledge-babok-guide/) | Planning and Monitoring, Elicitation and Collaboration, Requirements Life Cycle Management, Strategy Analysis, Requirements Analysis and Design Definition, and Solution Evaluation | Business-analysis workflow around the BRS |
+| [IIBA Business Analysis Standard](https://www.iiba.org/knowledgehub/the-business-analysis-standard/) | Accessible task cards for the 30 BABOK tasks and current IIBA requirements classification | Practical task and terminology reference |
+| [IIBA Global Business Analysis Core Standard](https://www.iiba.org/globalassets/standards-and-resources/core-standard/iiba-core-standard.pdf) | BACCM, requirements categories, and the six BABOK knowledge areas | Completeness lens for interviews and analysis |
+| [IREB Requirements Elicitation](https://cpre.ireb.org/en/concept/requirements-elicitation) | Structured source management, technique selection, conflict resolution, and validation | Elicitation planning and source control |
+| [Business Rules Manifesto](https://www.businessrulesgroup.org/brmanifesto.htm) and [OMG SBVR](https://www.omg.org/spec/SBVR) | Rule independence, declarative rules, business vocabulary, and rule validation | Separation of terms, facts, rules, processes, and implementation |
+| [GOV.UK user research planning](https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service) and [research analysis](https://www.gov.uk/service-manual/user-research/analyse-a-research-session) | Research questions, iterative rounds, participant selection, and separation of observations from findings | Practical research discipline |
+| [NASA Stakeholder Expectations Definition](https://www.nasa.gov/reference/4-1-stakeholder-expectations-definition/) | Lifecycle stakeholders, scenarios, ConOps, constraints, and measures of effectiveness | Operational and lifecycle coverage |
+
+ISO supplies the requirements-engineering process and BRS content model. BABOK supplies the analysis workflow and requirements lifecycle. The other sources strengthen elicitation, research, rule, and operational practices. The status model, registers, gates, and physical packaging below are local playbook conventions.
+
+## Reconcile BABOK and ISO Terminology
+
+### Requirements Categories
+
+BABOK classifies requirements by purpose:
+
+| BABOK category | Meaning | Normal destination |
+|---|---|---|
+| Business requirement | A goal, objective, or outcome that explains why a change is initiated | BRS problem, outcome, success, scope, and capability outcomes |
+| Stakeholder requirement | A need of a stakeholder or stakeholder class that must be met to achieve the business requirements | Summarized in the BRS; specified in detail in the StRS |
+| Solution requirement | A capability or quality of a solution that meets stakeholder requirements | SyRS or SRS |
+| Transition requirement | A temporary capability or condition needed to move from the current state to the future state | Transition plan or a linked transition specification |
+
+The terms do not align one-to-one:
+
+- BABOK uses **business requirement** narrowly for goals, objectives, and outcomes.
+- ISO uses **Business Requirements Specification** for a broader information item that includes purpose, scope, stakeholders, environment, processes, policies, rules, constraints, operational concepts, and scenarios.
+- An ISO-shaped BRS is therefore not merely a list of BABOK business requirements.
+
+Use the BRS to hold the controlled business context and behavior. Route detailed stakeholder, solution, transition, and design information to their owning artifacts.
+
+### Stated Requirement
+
+The BABOK glossary defines a stated requirement as a requirement articulated by a stakeholder that has not yet been analyzed, verified, or validated. Treat it as a raw source statement:
+
+```text
+Stated requirement
+        |
+        v
+Confirmed elicitation result
+        |
+        v
+Classified and analyzed information
+        |
+        v
+Verified and validated requirement or model
+        |
+        v
+Approved baseline element
+```
+
+The original statement remains in the Elicitation Log even when the analyzed result is rewritten, split, rejected, or routed outside the BRS.
+
+### BACCM as an Interview Completeness Lens
+
+Use the six Business Analysis Core Concept Model concepts to test whether discovery is balanced:
+
+| BACCM concept | Discovery question |
+|---|---|
+| Change | What controlled transformation needs to occur? |
+| Need | What problem, opportunity, or constraint has potential value? |
+| Stakeholder | Who is affected, provides knowledge, receives value, owns rules, or decides? |
+| Value | What value is expected, for whom, and how will it be measured? |
+| Context | Which internal and external conditions influence the change? |
+| Solution | Which possible ways could satisfy the need without prematurely selecting a design? |
+
+BACCM is a reasoning checklist, not a replacement for BRS headings.
+
+## Working Registers
+
+The registers can be tables in one working page, a requirements tool, or separate controlled artifacts. Keep them together for a small initiative and split them only when ownership, reuse, tooling, assurance, or review size justifies it.
+
+### Source Register
+
+| Field | Meaning |
+|---|---|
+| Source ID | Stable local identifier |
+| Source | Stakeholder, document, system, observation, or dataset |
+| Authority and version | Owner, role, date, version, or effective period |
+| Knowledge or jurisdiction | What this source can authoritatively explain or decide |
+| Related questions and capabilities | Discovery scope covered by the source |
+| Status | Available, pending, superseded, or inaccessible |
+
+People are not the only requirements sources. Policies, regulations, contracts, analytics, operational records, current systems, and observed work can confirm or contradict interview statements.
+
+### Research Question Backlog
+
+| Field | Meaning |
+|---|---|
+| Question ID | Stable local identifier |
+| Question | A specific uncertainty to resolve |
+| Decision affected | Why the answer matters |
+| Candidate sources | Who or what can provide evidence |
+| Method | Interview, observation, workshop, document analysis, data analysis, or another technique |
+| Capability | Local or initiative-wide scope |
+| Priority | Blocking, high, normal, or low |
+| Status and answer | Open, planned, answered, disputed, or deferred |
+
+Turn an unsupported opinion into a research question instead of copying it into the BRS.
+
+### Elicitation Log
+
+| Field | Meaning |
+|---|---|
+| Entry ID | Stable local identifier |
+| Source and context | Participant or evidence source, date, situation, and technique |
+| Raw statement or observation | What was actually said, seen, or measured |
+| Evidence | Recording, note, document, metric, case, or link |
+| Initial type | Statement, observation, assumption, issue, rule candidate, scenario, or question |
+| Confirmation | Raw, confirmed, disputed, or rejected |
+
+Keep observation and interpretation distinct:
+
+```text
+Observation    what was seen or measured
+Statement      what a participant said
+Finding        what the evidence supports
+Interpretation the analyst's explanation
+```
+
+### Analysis Register
+
+Classify confirmed results as one of:
+
+- problem or evidence;
+- goal, objective, outcome, or measure;
+- stakeholder need;
+- term or business fact;
+- scenario;
+- business rule;
+- constraint;
+- assumption;
+- dependency;
+- risk;
+- decision;
+- open question;
+- stakeholder, solution, or transition requirement candidate;
+- design candidate.
+
+Record the source, rationale, capability scope, status, and destination for every accepted item.
+
+### Decision and Conflict Log
+
+| Field | Meaning |
+|---|---|
+| Decision or conflict ID | Stable local identifier |
+| Positions or alternatives | The competing interpretations or options |
+| Affected outcomes and capabilities | Business impact |
+| Authority | Decision owner and consulted parties |
+| Criteria | Value, risk, cost, policy, evidence, or other basis |
+| Resolution and rationale | Decision, date, and reason |
+| Status | Open, decided, superseded, or deferred |
+
+### Traceability Register
+
+Maintain enough lineage to navigate change and validate value:
+
+```text
+Source
+  -> stated requirement or observation
+    -> confirmed finding
+      -> business outcome
+        -> capability
+          -> BRS rule, scenario, constraint, or decision
+            -> StRS / SyRS / SRS / transition requirement
+              -> delivery and outcome evidence
+```
+
+Do not duplicate entire downstream repositories. Keep stable links, aggregate status, and the evidence needed for impact analysis.
+
+## How It Works
+
+### 0. Choose the Baseline Form
+
+Select:
+
+- a new BRS for a new controlled business boundary;
+- a capability module within an existing logical BRS;
+- a [BRS Delta](04-working-with-brs-deltas.md) for a change to an existing baseline.
+
+Use a separate capability module only when the area has a coherent outcome, boundary, owner, and rule set. A screen, API, service, database change, or delivery task is not by itself a business capability.
+
+Output:
+
+- draft baseline ID;
+- business boundary hypothesis;
+- business owner;
+- governing baseline and base version, when applicable.
+
+### 1. Plan the Business Analysis
+
+Apply BABOK Business Analysis Planning and Monitoring:
+
+- plan the analysis approach;
+- plan stakeholder engagement;
+- define governance;
+- define information management;
+- define expected analysis outcomes and checkpoints.
+
+Decide:
+
+- who owns and approves the BRS;
+- who owns capability and cross-cutting rules;
+- who resolves scope, priority, and rule conflicts;
+- how interview results are confirmed;
+- how information is stored, accessed, retained, and versioned;
+- how confidentiality, consent, recordings, and personal data are handled;
+- how changes are assessed and approved.
+
+Exit condition:
+
+> Participants know what will be produced, how their information will be used, and who has decision authority.
+
+### 2. Collect Sources Before Interviewing
+
+Review:
+
+- the original request;
+- organization strategy and objectives;
+- business cases and product visions;
+- current BRS baselines and deltas;
+- policies, laws, contracts, and standards;
+- current process and decision models;
+- metrics, analytics, complaints, and incident records;
+- existing systems and operational procedures;
+- previous decisions, assumptions, and known constraints.
+
+Create the initial Source Register and Research Question Backlog.
+
+Do not ask participants to reproduce facts that can be obtained more reliably from authoritative documents or data. Use interview time to interpret, challenge, and complete the evidence.
+
+### 3. Conduct the Sponsor and Business-Owner Interview
+
+Use BACCM to establish the initiative frame:
+
+1. **Need** — What problem, opportunity, or constraint requires attention?
+2. **Value** — What result is expected, for whom, and how will it be measured?
+3. **Change** — What must change in business behavior or capability?
+4. **Context** — Why now, and what external or internal conditions matter?
+5. **Stakeholders** — Who is affected, knowledgeable, accountable, or able to block the change?
+6. **Solution** — Which solution classes are assumed, and which remain hypotheses?
+
+Also ask:
+
+- Which facts demonstrate the current problem?
+- What is the baseline for each proposed success measure?
+- What is provisionally in and out of scope?
+- Which constraints, risks, and deadlines are already known?
+- Which decision will this BRS enable?
+
+Update:
+
+- BRS section 1 sources and executive summary;
+- section 2 problem and current context;
+- section 3 desired outcome and success;
+- provisional section 4 scope and non-goals.
+
+Gate:
+
+> The problem is stated without prescribing a screen, API, database, component, or architecture.
+
+### 4. Build the Stakeholder Map
+
+Consider:
+
+- sponsor and final approvers;
+- process, policy, rule, and data owners;
+- actual users and operators;
+- operations, support, and service teams;
+- legal, compliance, risk, security, privacy, and audit;
+- partners and external parties;
+- acquisition, deployment, training, maintenance, and retirement stakeholders;
+- affected groups that do not hold decision authority.
+
+For each stakeholder or class, record:
+
+- relation to the need, change, and possible solution;
+- expected value;
+- knowledge or jurisdiction;
+- concerns and constraints;
+- influence and decision rights;
+- capabilities and research questions they can confirm.
+
+Update BRS section 5 at initiative level. Keep capability-specific participants for section 8.
+
+### 5. Build and Prioritize the Research Question Backlog
+
+Rewrite opinions as answerable questions:
+
+| Weak statement | Research question |
+|---|---|
+| Customers do not understand the process | At which step do customers stop or seek help, and what evidence explains why? |
+| The check is mandatory | Which authority establishes the check, for which cases, and with which exceptions? |
+| We need a new service | Which required business behavior is not provided by current capabilities? |
+| The process is too slow | What is the current duration distribution, where is time spent, and what outcome requires a different target? |
+
+Prioritize a question as **blocking** when its answer can change:
+
+- the initiative outcome;
+- scope or non-goals;
+- a mandatory rule or constraint;
+- the capability boundary;
+- approval of the baseline.
+
+### 6. Plan Elicitation Rounds
+
+Apply the BABOK Elicitation and Collaboration loop:
+
+```text
+Prepare -> Conduct -> Confirm
+        -> Communicate -> Manage collaboration
+```
+
+For every round identify:
+
+- research questions;
+- participant classes and sources;
+- selected techniques;
+- supporting materials;
+- expected outputs;
+- confirmation approach;
+- analysis time;
+- decisions enabled by the results.
+
+Choose techniques by the question:
+
+| Need to learn | Preferred techniques |
+|---|---|
+| Goals, motivation, authority, and concerns | Interview |
+| Actual work, workarounds, and environmental constraints | Observation or contextual inquiry |
+| Handoffs and shared understanding | Workshop and process modelling |
+| Policies, rules, and regulatory constraints | Document analysis plus rule-owner interview |
+| Interacting conditions and exceptions | Decision-table workshop |
+| Frequency, scale, and performance | Data analysis, case sampling, survey, or benchmarking |
+| Future interactions and operational context | Scenarios, ConOps, use cases, or prototype |
+| Conflicting interests | Separate interviews followed by a facilitated decision workshop |
+
+Complete a round when its priority questions are answered with confirmed evidence or are recorded as open questions with owners and dates. Do not use an arbitrary interview count as the exit criterion.
+
+### 7. Analyze the Current State
+
+Apply BABOK Analyze Current State.
+
+Determine:
+
+- what triggers and ends the current process;
+- who actually participates;
+- which activities, decisions, and handoffs occur;
+- which information is used and who owns it;
+- which rules are documented and which are applied in practice;
+- where errors, delays, queues, rework, and workarounds occur;
+- which measures exist and what their baselines are;
+- where documented and observed behavior differ;
+- which organizational, market, regulatory, technology, and lifecycle conditions matter.
+
+Use multiple sources for material findings where practical. A policy can establish authority, observation can show actual behavior, and data can show scale.
+
+Update:
+
+- BRS section 2 current behavior and evidence;
+- section 6 shared terms and business concepts;
+- current-state context, process, decision, state, or information models when triggered.
+
+Gate:
+
+> The problem and material causes are supported by an authoritative source or corroborated evidence, not only one opinion.
+
+### 8. Define the Future State and Change Strategy
+
+Apply BABOK:
+
+1. Define Future State.
+2. Assess Risks.
+3. Define Change Strategy.
+
+Determine:
+
+- the necessary future business conditions;
+- target outcomes, value, measures, and thresholds;
+- affected areas of the enterprise;
+- future-state and transition risks;
+- candidate solution classes;
+- intermediate states;
+- organization and operating-model changes;
+- preliminary transition requirements.
+
+If solution classes differ materially, perform a separate option or trade-off analysis. Reference the selected class and rationale from the BRS without embedding architecture or design.
+
+Update BRS sections 3, 4, and 7.
+
+Treat scope as provisional until current-state evidence, future-state conditions, stakeholders, and the capability map are coherent.
+
+### 9. Stabilize the Capability Map
+
+For each capability define:
+
+- business outcome;
+- owned behavior and explicit boundary;
+- business owner;
+- affected stakeholders;
+- contribution to initiative value;
+- success evidence;
+- dependencies on other capabilities.
+
+Gate:
+
+- the capability is named for a business ability, not a component;
+- it has a coherent outcome and owner;
+- it covers a meaningful part of scope;
+- it does not duplicate a neighboring capability;
+- the complete map covers in-scope target business behavior.
+
+### 10. Run a Discovery Cycle for Each Capability
+
+#### Prepare
+
+- choose capability research questions;
+- identify participants and authoritative sources;
+- assemble known terms, facts, scenarios, and models;
+- list assumptions to test;
+- choose confirmation and validation reviewers.
+
+#### Conduct
+
+Gather:
+
+- stakeholder needs, responsibilities, and concerns;
+- current and target behavior;
+- terms and business facts;
+- normal, alternative, negative, and boundary scenarios;
+- decisions, criteria, and exceptions;
+- business rules and authoritative sources;
+- business information and events;
+- outcome measures;
+- constraints, assumptions, dependencies, and risks;
+- transition concerns;
+- decisions and open questions.
+
+All session results begin as `Raw`.
+
+#### Confirm
+
+- play back the result to the source;
+- compare it with authoritative documents, data, and other participants;
+- identify errors, omissions, ambiguity, and conflicts;
+- mark each result `Confirmed`, `Disputed`, or `Rejected`.
+
+Confirmation asks whether the elicitation record is accurate. It does not yet approve the analyzed requirement.
+
+#### Specify and Model
+
+Transform confirmed information into the BRS capability block:
+
+- Outcome and Boundary;
+- Success Evidence;
+- Capability Stakeholders and Decision Rights;
+- Local Terms and Business Concepts;
+- Capability Rules;
+- Capability Scenarios;
+- Applicable Models;
+- Decisions and Open Questions;
+- Local Constraints, Assumptions, Dependencies, and Risks.
+
+Route detailed stakeholder, solution, transition, and design information to their owning artifacts.
+
+#### Validate
+
+With business participants and owners, ask:
+
+- Does the capability contribute to the business need and outcome?
+- Does it represent the intended target behavior?
+- Do rule owners confirm the policies and exceptions?
+- Do scenarios cover the contexts that materially change the outcome?
+- Is the expected value sufficient to justify the change?
+
+Repeat the cycle while new evidence materially changes the outcome, boundary, main rules, material scenarios, or stakeholder agreement.
+
+### 11. Formalize Business Rules Separately
+
+Discover rules together with processes and scenarios, but manage them as independent business knowledge:
+
+```text
+Terms -> Facts -> Decisions and constraints -> Rules
+```
+
+For every rule record:
+
+- a declarative natural-language statement;
+- source and authority;
+- business owner;
+- motivating goal, policy, risk, or obligation;
+- scope and applicable capabilities;
+- related terms and facts;
+- exceptions as separate rules;
+- related scenarios and decisions;
+- effective date or validity;
+- status and version.
+
+Do not classify as a business rule:
+
+- a stakeholder preference;
+- a sequence of process steps;
+- a UI or API behavior;
+- an implementation mechanism;
+- an unverified assumption.
+
+A stakeholder need can reveal that a rule must be investigated. It does not automatically establish the rule.
+
+### 12. Perform Cross-Capability Synthesis
+
+After capability cycles:
+
+- move shared rules to Cross-Cutting Concerns;
+- build end-to-end scenarios;
+- inspect handoffs and ownership gaps;
+- define shared business information and events;
+- remove duplicated terms, rules, and constraints;
+- resolve conflicts between capabilities;
+- record initiative-wide constraints, assumptions, dependencies, risks, and decisions.
+
+Update BRS section 9.
+
+### 13. Classify and Route Analyzed Results
+
+Assign one primary classification to every accepted item:
+
+| Result | Classification | Destination |
+|---|---|---|
+| Goal, objective, outcome, or reason for change | Business requirement | BRS |
+| Need of a stakeholder or stakeholder class | Stakeholder requirement | StRS; summarized in BRS when needed |
+| Permanent function or behavior of a solution | Functional solution requirement | SyRS or SRS |
+| Permanent quality or condition of a solution | Non-functional solution requirement | SyRS or SRS |
+| Temporary migration, training, continuity, or adoption condition | Transition requirement | Transition plan or specification |
+| Governed norm of business behavior | Business rule | BRS or authoritative rule catalog |
+| Chosen implementation approach | Design | Architecture or design decision |
+| Unanalyzed participant statement | Stated requirement | Elicitation Log |
+
+When one raw statement contains several types, split it into separately traceable analyzed items.
+
+### 14. Verify the BRS
+
+Verification asks:
+
+> Is the business-analysis information represented well?
+
+Check:
+
+- clarity and unambiguity;
+- consistency;
+- completeness for the tailored scope;
+- feasibility;
+- verifiability;
+- correct classification;
+- consistent terminology;
+- model correctness;
+- backward and forward traceability;
+- absence of hidden design;
+- absence of avoidable duplication.
+
+Verification is primarily an analytical quality review. It does not establish that the BRS describes the right change.
+
+### 15. Validate the BRS
+
+Validation asks:
+
+> Does this baseline describe the right change and sufficient value?
+
+Check:
+
+- alignment to the business need;
+- contribution of every capability to outcomes;
+- adequacy of success measures;
+- coverage of key stakeholder needs and contexts;
+- suitability of scope and non-goals;
+- consistency with authoritative rules and constraints;
+- expected value relative to risk and change cost;
+- absence of capabilities that do not contribute to the stated outcome.
+
+Use business-owner playback, scenario review, model walkthroughs, evidence review, and option analysis as appropriate.
+
+### 16. Prioritize Without Weakening Mandatory Content
+
+Prioritize:
+
+- outcomes;
+- stakeholder needs;
+- capabilities;
+- scenarios;
+- open questions;
+- proposed changes.
+
+Do not apply ordinary feature priority to every item:
+
+- a law or contractual obligation is mandatory within its applicability;
+- a business rule is classified by authority, criticality, and effective date;
+- a constraint is mandatory while it applies;
+- an assumption requires validation;
+- a risk requires a response decision;
+- a transition requirement has a limited period of applicability.
+
+### 17. Resolve Conflicts
+
+For each conflict record:
+
+- competing positions or interpretations;
+- sources and authority;
+- affected outcomes and capabilities;
+- alternatives and trade-offs;
+- decision criteria;
+- decision owner;
+- resolution and rationale.
+
+Resolve conflicts that block outcome, scope, mandatory rules, capability boundaries, or required behavior before baseline approval. Non-blocking conflicts may remain visible with owners and decision dates.
+
+### 18. Approve and Establish the Baseline
+
+Apply BABOK Approve Requirements through:
+
+- capability playback;
+- cross-capability review;
+- rule-owner review;
+- business-owner review;
+- approve, reject, or revise decisions;
+- revision history;
+- baseline version and status.
+
+Only accepted information enters the approved BRS. Raw, merely stated, disputed, or unvalidated requirements cannot silently become normative.
+
+### 19. Maintain and Change the Baseline
+
+Apply BABOK Requirements Life Cycle Management:
+
+- trace requirements;
+- maintain requirements;
+- prioritize requirements;
+- assess requirements changes;
+- approve requirements.
+
+After approval:
+
+- propose local changes through a BRS Delta;
+- assess shared-rule and scope changes across all affected capabilities;
+- preserve source, rationale, identifiers, and history;
+- trace downstream changes back to the governing baseline;
+- do not delete superseded meaning without version history.
+
+### 20. Close the Value Loop Through Solution Evaluation
+
+After implementation:
+
+- measure actual performance and value using BRS success measures;
+- compare baseline, target, and observed results;
+- assess solution limitations;
+- assess enterprise and operating-model limitations;
+- recommend corrective actions;
+- create a BRS Delta when business intent, rules, scope, or outcomes need to change.
+
+Solution Evaluation is outside initial BRS authoring, but it is the evidence that the approved business outcome was or was not achieved.
+
+## Quality Gates
+
+A BRS is ready for approval when:
+
+- [ ] **Need** — The problem, opportunity, or constraint is supported by evidence.
+- [ ] **Value** — Outcomes have owners, measures, baselines, and targets where meaningful.
+- [ ] **Change** — The required business transformation is understandable.
+- [ ] **Context** — Material internal, external, operational, and lifecycle conditions are represented.
+- [ ] **Stakeholders** — Relevant classes, sources, rule owners, and decision rights are covered.
+- [ ] **Capability** — The capability map covers scope using business outcomes rather than solution components.
+- [ ] **Source** — Every material element has a source or explicit rationale.
+- [ ] **Classification** — Business, stakeholder, solution, and transition requirements are not mixed.
+- [ ] **Rule** — Rules are declarative, scoped, sourced, and confirmed by their owners.
+- [ ] **Scenario** — Normal, alternative, negative, and material boundary contexts are covered.
+- [ ] **Traceability** — Downstream requirements can trace to sources, outcomes, rules, constraints, or decisions.
+- [ ] **Verification** — The representation is clear, consistent, feasible, and appropriately complete.
+- [ ] **Validation** — The baseline addresses the business need and expected value.
+- [ ] **Conflict** — Blocking conflicts are resolved and remaining questions have owners and dates.
+- [ ] **Decision** — The business owner can approve, reject, or reshape the initiative.
+
+## Why Source Order Can Be Misleading
+
+- ISO 29148 defines process outcomes and information-item content. BRS section 9.3 is not an interview script or authoring sequence.
+- The BRS template is organized for reading and approval. Its headings are not the order in which facts must be discovered.
+- BABOK groups tasks by knowledge area, but analysis tasks are tailored, iterative, and often concurrent. Its chapter order is not a mandatory lifecycle.
+- BABOK business requirements are narrower than the complete ISO BRS information item.
+- Stakeholder planning occurs before most elicitation even though the template's stakeholder section follows problem, outcome, and scope.
+- Scope begins as a hypothesis and stabilizes only after current-state, future-state, stakeholder, risk, and capability analysis.
+- Rules and scenarios are discovered together, but rules remain independent from processes and technical enforcement.
+- Transition requirements are temporary and should not be converted into permanent business rules.
+- Solution Evaluation occurs after the initial BRS, but the BRS must define success evidence early enough to enable it.
+
+## Common Mistakes
+
+- Filling the BRS template from top to bottom as a questionnaire.
+- Treating an interview statement as an approved requirement.
+- Interviewing only the sponsor or only current users.
+- Asking stakeholders for facts that authoritative documents or data can answer more reliably.
+- Converting a stakeholder need into a business rule without a governing source or owner.
+- Using one generic `In Progress` status for elicitation, analysis, approval, delivery, and value realization.
+- Treating provisional scope as final before current-state and capability analysis.
+- Mixing transition requirements with durable target behavior.
+- Writing system functions, interfaces, data structures, or components into the BRS.
+- Confirming interview notes but skipping verification and business validation.
+- Prioritizing a mandatory obligation as though it were an optional feature.
+- Approving a document that has success metrics but no data source or baseline.
+- Closing discovery without preserving source statements, conflicts, and decision rationale.
+- Declaring success at release without evaluating the business outcome.
+
+## Interview Angle
+
+> I do not fill the BRS as a questionnaire. I use BABOK to plan the analysis, manage elicitation, analyze current and future states, classify and trace requirements, and verify and validate the result. I use ISO 29148 as the BRS coverage model. Interview statements stay raw until confirmed and analyzed; business rules require business authority; stakeholder, solution, transition, and design information is routed to the appropriate downstream artifact. The approved BRS then provides the measures used to evaluate whether the delivered change created the intended value.
+
+## Related Topics
+
+- [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
+- [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md)
+- [Business Requirements Specification template](03-business-requirements-specification-template.md)
+- [Working with BRS Deltas](04-working-with-brs-deltas.md)
+- [Requirements discovery techniques](requirements-discovery-techniques.md)
+- [System boundary checklist](system-boundary-checklist.md)
+- [Product and Requirements index](README.md)

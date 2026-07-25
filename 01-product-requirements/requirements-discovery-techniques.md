@@ -2,6 +2,8 @@
 
 Requirements discovery is the work of turning scattered signals into testable product and engineering decisions.
 
+Use this page as a technique-selection companion to [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md). An interview statement is a raw input until it is confirmed, analyzed, classified, verified, and validated.
+
 ## Technique Map
 
 | Technique | Use When | Output |
@@ -31,22 +33,31 @@ Requirements discovery is the work of turning scattered signals into testable pr
 
 ## Discovery Outputs
 
-A discovery pass should leave behind:
+A discovery pass should leave behind controlled working information:
 
-- Problem statement
-- Stakeholder map
-- System boundary
-- Core scenarios and edge cases
-- Business rules
-- Functional requirements
-- Quality attributes
-- Acceptance criteria
-- Risks and assumptions
-- Open questions with owners
+- authoritative sources and raw evidence;
+- prioritized research questions;
+- confirmed observations and stakeholder statements;
+- problem, outcome, scope, and stakeholder findings;
+- terms, scenarios, business-rule candidates, constraints, assumptions, dependencies, and risks;
+- conflicts, decisions, and open questions with owners;
+- traceable candidates for the appropriate requirements artifact.
+
+Route analyzed results by level:
+
+| Result | Normal Destination |
+|---|---|
+| Business purpose, outcomes, scope, capabilities, rules, and business constraints | BRS |
+| Detailed stakeholder needs and intended interactions | StRS |
+| Functional behavior and quality attributes of the solution | SyRS or SRS |
+| Temporary migration, training, continuity, and adoption conditions | Transition plan or specification |
+| Implementation choices | Architecture or design decision |
 
 ## Common Failure Modes
 
 - Recording stakeholder wishes without identifying the underlying problem.
+- Treating a stated requirement as confirmed or approved.
+- Converting a stakeholder need into a business rule without an authoritative source or owner.
 - Treating implementation ideas as requirements.
 - Missing negative scenarios and operational failures.
 - Ignoring data ownership and migration constraints.

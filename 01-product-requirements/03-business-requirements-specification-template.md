@@ -9,9 +9,11 @@ The coverage model follows [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standar
 
 Practical additions come from Karl Wiegers and Joy Beatty's Vision and Scope approach described in [Software Requirements, Third Edition](https://www.microsoftpressstore.com/store/software-requirements-9780735679610) and the working materials available from [Software Requirements Essentials](https://softwarereqs.com/).
 
-Read [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md) for the artifact decision and [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md) for guidance on conditional models and physical organization.
+Read [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md) for the artifact decision, [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md) for conditional models and physical organization, and [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md) for the iterative authoring workflow.
 
 ## How to Use This Template
+
+The headings below are organized for review and approval, not as a sequential interview script. Preserve raw inputs, confirm and analyze them, and route each result to the appropriate requirements level before treating it as normative BRS content.
 
 1. Preserve the original business request and authoritative evidence as linked sources.
 2. Complete the core sections below for a typical initiative. For a small governed change, record a [BRS Delta](04-working-with-brs-deltas.md) and link to the governing baseline.
@@ -254,6 +256,7 @@ Open questions may remain at baseline review when their impact, owner, and decis
 ### Readiness Gate
 
 - [ ] The original request and governing sources are preserved and linked.
+- [ ] Normative BRS content is based on confirmed and analyzed information; raw stakeholder statements remain identifiable as sources.
 - [ ] The problem is stated independently of a preferred technical solution.
 - [ ] Desired outcomes have observable success evidence.
 - [ ] In-scope and out-of-scope behavior is explicit.
@@ -263,6 +266,7 @@ Open questions may remain at baseline review when their impact, owner, and decis
 - [ ] Every rule is classified as capability, cross-cutting, or external; shared and external rules are not copied into local catalogs.
 - [ ] Capability-local and end-to-end scenarios are separated, and material condition combinations use a decision table when needed.
 - [ ] Constraints, assumptions, dependencies, and risks remain explicitly classified at capability or initiative scope.
+- [ ] Detailed stakeholder, solution, transition, and design information is linked to its owning artifact instead of being mixed into the BRS.
 - [ ] Blocking business questions are resolved; remaining questions have owners and dates.
 - [ ] The business owner can approve, reject, or reshape the initiative using this baseline.
 - [ ] Downstream stakeholder and solution requirements can trace through the relevant capability to a source, outcome, rule, constraint, or decision.
@@ -382,6 +386,7 @@ This map shows where the practical template normally addresses the public BRS ou
 - [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
 - [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
+- [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [System boundary checklist](system-boundary-checklist.md)
 - [Product and Requirements index](README.md)
