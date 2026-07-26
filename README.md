@@ -10,6 +10,7 @@ Public engineering playbook: practical templates, checklists, and decision guide
 - [Data, Integration & Reliability](04-data-integration-reliability/README.md)
 - [Delivery, Quality & Operations](05-delivery-quality-operations/README.md)
 - [Technical Leadership](06-technical-leadership/README.md)
+- [AI Skills](skills/README.md)
 - [Docs index](docs/README.md)
 
 ## Principles
