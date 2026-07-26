@@ -55,6 +55,20 @@ Raw -> Confirmed -> Analyzed -> Accepted -> Baselined
 
 The BRS is the approved business-level result of this work. Interview notes, observations, research findings, detailed stakeholder requirements, solution requirements, transition plans, and design decisions remain distinct linked information.
 
+## Tailor Discovery and the Baseline Together
+
+Tailoring is part of the discovery workflow, not a separate requirements process. Treat the BRS as one logical baseline and use progressive disclosure: begin with the smallest reviewable form that preserves the applicable business information, then add structure only when complexity, ownership, reuse, tooling, assurance, or review size creates a concrete need.
+
+| Tailoring decision | Start with | Expand when |
+|---|---|---|
+| Baseline form | One BRS for a new governed business boundary | Use a capability module under an existing baseline or a BRS Delta when a governing baseline already exists |
+| Capability structure | One inline business capability when it provides enough context | Add a Capability Map and linked modules when several coherent outcomes, owners, rule sets, or review boundaries emerge |
+| Models | Clear narrative and compact tables | Add decision, state, process, information, event, or scenario models when prose hides material combinations, transitions, handoffs, or meaning |
+| Physical package | One controlled baseline page and one working page | Split by ownership, reuse, independent approval, specialized tooling, assurance, access control, or review size |
+| Traceability | Stable source and downstream links | Add a formal traceability register when regulation, contract, safety, audit, or cross-artifact impact analysis requires it |
+
+Tailoring can change the physical form, level of detail, and supporting models. It must not remove information material to the business decision or blur business requirements with stakeholder, solution, transition, or design information.
+
 ## Sources and Standards
 
 | Source | Contribution | Use Here |
@@ -283,9 +297,23 @@ Use explicit relationships when maintaining formal traceability:
 
 Capabilities can be decomposed into smaller business abilities when each child has its own coherent outcome and boundary. Stop before the names become technical actions such as `Call API`, `Read flag`, `Write record`, or `Display screen`; those are solution responsibilities.
 
+### Add Models Only When Triggered
+
+| Model or artifact | Add it when | Do not use it for |
+|---|---|---|
+| Context or process model | Several participants, handoffs, approvals, or external parties shape the outcome | Component orchestration or deployment topology |
+| Decision table or decision model | Conditions interact, exceptions overlap, or combinations are easy to miss | Repeating a simple rule in tabular form |
+| State or lifecycle model | Permitted behavior depends on a business object's state or valid transition | Describing technical job or service states |
+| Separate rule catalog | Rules are reused, independently owned, regulated, or have their own lifecycle | Splitting a short initiative into many pages |
+| Conceptual information model | Meaning, ownership, validity, or relationships between business concepts drive decisions | Database tables, schemas, or serialization |
+| Business event catalog | The occurrence and business consequence matter before a transport mechanism is selected | Defining message topics or payload contracts |
+| Detailed scenarios | Important positive, negative, ownership, continuity, or transition paths clarify outcomes | Enumerating every condition combination |
+
+State whether each model applies to one capability or the whole initiative. Keep the model with its owning scope and link it from the logical BRS.
+
 ## Recommended Working Directory
 
-The BRS is a logical baseline, not a mandatory folder tree. ISO 29148 does not prescribe this layout. Start with one controlled page and one working page; expand the package only when ownership, reuse, tooling, assurance, or review size justifies the split described in [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md).
+The BRS is a logical baseline, not a mandatory folder tree. ISO 29148 does not prescribe this layout. Start with one controlled page and one working page; expand the package only when the tailoring triggers above justify the split.
 
 A small initiative can start with:
 
@@ -437,10 +465,10 @@ Also ask:
 
 Update:
 
-- BRS section 1 sources and executive summary;
-- section 2 problem and current context;
-- section 3 desired outcome and success;
-- provisional section 4 scope and non-goals.
+- BRS References and Business Purpose;
+- Mission, Goals, and Objectives;
+- provisional Business Scope;
+- Business Overview when an initiative summary is needed.
 
 Gate:
 
@@ -468,7 +496,7 @@ For each stakeholder or class, record:
 - influence and decision rights;
 - capabilities and research questions they can confirm.
 
-Update BRS section 5 at initiative level. Keep capability-specific participants for section 8.
+Update Major Stakeholders and Business Structure at initiative level. Keep capability-specific participants in their owning capability module and reflect material interactions in the High-Level Operational Concept.
 
 ### 5. Build and Prioritize the Research Question Backlog
 
@@ -544,8 +572,9 @@ Use multiple sources for material findings where practical. A policy can establi
 
 Update:
 
-- BRS section 2 current behavior and evidence;
-- section 6 shared terms and business concepts;
+- Business Purpose, Business Overview, and Business Environment;
+- Definitions and Information Environment;
+- Business Processes;
 - current-state context, process, decision, state, or information models when triggered.
 
 Gate:
@@ -573,7 +602,7 @@ Determine:
 
 If solution classes differ materially, perform a separate option or trade-off analysis. Reference the selected class and rationale from the BRS without embedding architecture or design.
 
-Update BRS sections 3, 4, and 7.
+Update Mission, Goals, and Objectives; Business Scope; High-Level Operational Concept; and applicable Other Lifecycle Concepts.
 
 Treat scope as provisional until current-state evidence, future-state conditions, stakeholders, and the capability map are coherent.
 
@@ -641,7 +670,7 @@ Confirmation asks whether the elicitation record is accurate. It does not yet ap
 
 #### Specify and Model
 
-Transform confirmed information into the BRS capability block:
+Transform confirmed information into a capability module and the applicable BRS sections:
 
 - Outcome and Boundary;
 - Success Evidence;
@@ -714,7 +743,7 @@ After capability cycles:
 - resolve conflicts between capabilities;
 - record initiative-wide constraints, assumptions, dependencies, risks, and decisions.
 
-Update BRS section 9.
+Update the applicable Information Environment, Business Processes, Operational Policies and Rules, Business Structure, High-Level Operational Concept, and High-Level Operational Scenarios sections.
 
 ### 13. Classify and Route Analyzed Results
 
@@ -912,7 +941,6 @@ A BRS is ready for approval when:
 
 - [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
 - [Business Requirements Specification standard](02-business-requirements-specification-standard.md)
-- [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [System boundary checklist](system-boundary-checklist.md)

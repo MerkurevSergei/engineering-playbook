@@ -393,7 +393,6 @@ After approval, `CHG-001` through `CHG-004` receive final dispositions. Approved
 
 - [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
 - [Business Requirements Specification standard](02-business-requirements-specification-standard.md)
-- [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md)
-- [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
+- [Discovering and Building a Business Requirements Baseline](03-discovering-and-building-a-business-requirements-baseline.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [Product and Requirements index](README.md)
