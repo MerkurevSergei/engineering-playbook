@@ -1,254 +1,160 @@
 # Choosing the First Requirements Artifact
 
-> Status: Draft  
+> Status: Draft
 > Area: product-requirements
 
 ## Problem
 
-The first input to a software initiative is rarely a clean requirements artifact. It may be an email, a ticket, a business presentation, a regulatory request, or a document that mixes:
+The first input to an initiative is rarely a controlled requirements artifact. It may be an email, a ticket, a business presentation, a regulatory request, or a document that mixes:
 
 - the business problem;
 - a proposed solution;
 - business rules;
 - UI and API ideas;
 - constraints and assumptions;
-- acceptance criteria or a local Definition of Done.
+- acceptance ideas or a local Definition of Done.
 
-Teams then give the first document different names: BRD, BRS, Vision and Scope, Product Goal, PRD, one-pager, project charter, ConOps, use case, or user story. These names are not interchangeable. Some are standardized information items, some are methods, some are framework concepts, and some are only local or vendor conventions.
+Teams then give the first document different names: BRD, BRS, Vision and Scope, Product Goal, PRD, one-pager, project charter, ConOps, use case, or user story. These names are not interchangeable. Some are standardized information items, some are methods or framework concepts, and some are only local or vendor conventions.
 
 The decision is not "Which acronym is most popular?" It is:
 
-> What is the first controlled baseline that explains why the change exists, where its boundaries are, and which business outcomes and rules must guide all later requirements?
+> Which controlled artifact is needed to establish the business purpose, authority, boundary, and expected outcome of this initiative?
 
 ## Core Idea
 
 Use a **Business Requirements Specification (BRS)** as the first controlled requirements baseline when an initiative needs an explicit business-level foundation.
 
-[ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) standardizes BRS as a business-level requirements information item. It does not prescribe a universal first physical file, nor does it require requirements work to be strictly linear. The standard explicitly supports iterative and recursive application of requirements processes and allows information to be organized according to project information-management policies.
+[ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) defines the BRS as a business-level requirements information item. The standard defines its required information concerns but does not require every initiative to begin with one physical file.
 
-Treat the raw business request as an immutable source, not as the analyzed baseline. Build the BRS from that source, preserving traceability back to it.
+The incoming request remains a source. Do not rename an unanalyzed email, ticket, presentation, or proposed design to `BRS` merely because the initiative needs a formal baseline.
 
-Use Karl Wiegers's **Vision and Scope** approach as a practical authoring and communication layer for the BRS. It adds useful ways to express measurable objectives, success metrics, risks, major features, release boundaries, stakeholder profiles, and priorities. Vision and Scope does not replace the ISO BRS and is not itself an ISO-standard artifact.
+Selecting a BRS is not automatic. A smaller or differently governed artifact can be sufficient when it already establishes the required business intent and decision authority.
+
+## Decision Rule
+
+Choose the first artifact by the decision it must support:
+
+| Decision need | Suitable first artifact |
+|---|---|
+| Establish a controlled business purpose, scope, stakeholders, environment, policies, rules, constraints, and operational concept | BRS |
+| Justify investment, authorize a project, or assign funding and accountability | Business Case or Project Charter |
+| Communicate a concise product direction without establishing a complete business baseline | Product Vision, one-pager, or Product Goal |
+| Explain how a system will be used and operated in its environment | ConOps |
+| Preserve an initial request for later analysis | Raw request, source record, or intake ticket |
+| Work within an existing approved business baseline | Reference the governing baseline instead of creating a competing first artifact |
+
+When several rows apply, keep the authoritative artifacts distinct and link them. Do not combine every concern into a document with an ambiguous local name.
 
 ## Sources and Standards
 
-| Source | What It Defines | How It Is Used Here |
-|---|---|---|
-| [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) and the [IEEE record](https://standards.ieee.org/ieee/29148/6937/) | Requirements-engineering processes, requirement characteristics, and BRS, StRS, SyRS, and SRS information items | Normative content model for the BRS |
-| [DIN Media standard outline](https://www.dinmedia.de/en/standard/iso-iec-ieee-29148/299567544) | Published table of contents for the ISO BRS, StRS, SyRS, and SRS sections | Verifiable outline for the template structure |
-| Karl Wiegers and Joy Beatty, [Software Requirements, Third Edition](https://www.microsoftpressstore.com/store/software-requirements-9780735679610) | Practical requirements-development guidance and the Vision and Scope approach | Authoring enhancements and practical identifiers such as BO, SM, RI, and FE |
-| [Wiegers's requirements resources](https://softwarereqs.com/) and [requirements-engineering handout](https://www.re18.cpsc.ucalgary.ca/assets/downloads/industryDay/Karl%20Wiegers%20RE18%20handout.pdf) | Vision and Scope template and the separation of business, user, and functional requirements | Practical structure and requirements-level separation |
-| [IIBA Business Analysis Standard](https://www.iiba.org/knowledgehub/the-business-analysis-standard/4-implementing-business-analysis/4-4-understanding-requirements-and-designs/) and [BABOK glossary](https://www.iiba.org/career-resources/a-business-analysis-professionals-foundation-for-success/babok/glossary/) | Business, stakeholder, solution, and transition requirement categories; requirements artifacts and packages | Classification, validation, and traceability guidance, not a mandatory first document |
-| [Scrum Guide](https://scrumguides.org/scrum-guide.html) | Product Goal as the commitment associated with the Product Backlog | Explains why Product Goal is useful but not a replacement for a BRS |
-| [NASA Systems Engineering Handbook guidance](https://www.nasa.gov/reference/4-1-stakeholder-expectations-definition/) | Concept of Operations as an early systems-engineering description of how a system will be used to meet stakeholder expectations | Explains the operational purpose of ConOps and why it is not a complete business-level baseline |
-| Atlassian [BRD](https://www.atlassian.com/software/confluence/resources/guides/how-to/business-requirements) and [PRD](https://www.atlassian.com/software/confluence/templates/product-requirements) templates | Common vendor and product-management practices | Evidence of industry usage, not normative definitions |
+| Source | Contribution to the decision |
+|---|---|
+| [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) and the [IEEE record](https://standards.ieee.org/ieee/29148/6937/) | Defines the standardized BRS information item and its business-level content |
+| Karl Wiegers and Joy Beatty, [Software Requirements, Third Edition](https://www.microsoftpressstore.com/store/software-requirements-9780735679610) | Defines the practical Vision and Scope approach used as a candidate method, not an ISO artifact |
+| [Scrum Guide](https://scrumguides.org/scrum-guide.html) | Defines Product Goal as the commitment associated with the Product Backlog, not as a standalone business baseline |
+| [NASA Stakeholder Expectations Definition](https://www.nasa.gov/reference/4-1-stakeholder-expectations-definition/) | Describes Concept of Operations as an operational representation of intended system use |
+| Atlassian [BRD](https://www.atlassian.com/software/confluence/resources/guides/how-to/business-requirements) and [PRD](https://www.atlassian.com/software/confluence/templates/product-requirements) templates | Demonstrate common vendor usage without establishing normative definitions |
 
-The ISO standard is the normative reference in this decision. Wiegers supplies a practical method. IIBA supplies a conceptual classification. Scrum supplies a product-delivery framework. Vendor templates demonstrate common usage only.
+ISO is the normative reference for the BRS decision. The other sources define alternative practices or illustrate common industry terminology.
 
 ## Candidate Artifacts
 
-The alternatives below are not inherently bad. Most of them answer a different question or do not have a stable, standards-based meaning.
+The alternatives below are not inherently weak. They answer different questions or have different authority.
 
-| Candidate | Origin | Standardized? | Useful For | Why It Is Not the Default First Baseline |
+| Candidate | Origin | Standardized? | Useful for | Why it is not always the first business baseline |
 |---|---|---:|---|---|
-| Raw business request | Stakeholder or organizational input | No | Preserving the original request, language, evidence, and source | It is usually stated rather than analyzed: it may mix needs, solutions, rules, assumptions, and acceptance ideas |
-| BRD — Business Requirements Document | Organizational and vendor practice | No single normative definition | Stakeholder alignment and project documentation | Its content varies widely; some BRDs contain only business goals, while others include functional and non-functional solution requirements |
-| BRS — Business Requirements Specification | ISO/IEC/IEEE 29148:2018 | Yes | Business purpose, scope, stakeholders, environment, processes, rules, constraints, and high-level operational concepts | This is the selected baseline; it must still be tailored and kept usable rather than copied mechanically |
-| Vision and Scope | Karl Wiegers's requirements method | Method, not standard | Concise business objectives, success measures, vision, features, scope, risks, and stakeholder alignment | It is practical but does not, by itself, guarantee coverage of all applicable ISO BRS content such as business processes, operational modes, and lifecycle concepts |
-| Business Case / Project Charter | Investment and project-governance practice | Depends on the governance framework | Funding, authorization, ownership, expected value, schedule, and project constraints | It may justify or authorize work without providing a requirements baseline; reuse it as a BRS source instead of duplicating it |
-| Product Goal | Scrum Guide | Standard within Scrum, but not a separate Scrum artifact | A future product state that focuses the Product Backlog | It is a commitment inside the Product Backlog and is intentionally too concise to cover the complete business baseline |
-| Product Vision / one-pager | IIBA terminology and general product practice | Product vision is defined conceptually; one-pager is not standardized | Fast communication and executive alignment | A short vision omits the business environment, rules, processes, constraints, risks, and traceability needed for a controlled baseline |
-| PRD — Product Requirements Document | Product-management and vendor practice | No single normative definition | Describing a product or feature, often including user stories, UX, features, and release scope | It commonly moves into solution and delivery detail before business-level requirements have been separated and validated |
-| [ConOps — Concept of Operations](https://www.nasa.gov/reference/4-1-stakeholder-expectations-definition/) | Systems-engineering practice | Defined in systems-engineering contexts | Explaining how a system will be used and operated in important scenarios | It provides an operational viewpoint, not a complete business-management baseline; it is especially useful as a linked model for operationally complex systems |
-| Use Case / User Story | Requirements and agile techniques | Defined techniques, not complete business baselines | Describing actor goals, observable interactions, or a small unit of stakeholder value | They sit at the stakeholder or usage level and cannot carry the full business purpose, process, rule, scope, and constraint model |
+| Raw business request | Stakeholder or organizational input | No | Preserving the original language, evidence, and source | It may mix needs, proposed solutions, assumptions, and acceptance ideas without analysis or approval |
+| BRD — Business Requirements Document | Organizational and vendor practice | No single normative definition | Stakeholder alignment and project documentation | Its content varies widely between organizations |
+| BRS — Business Requirements Specification | ISO/IEC/IEEE 29148:2018 | Yes | Establishing a controlled business-level requirements baseline | It is appropriate only when the initiative needs this level of business coverage and control |
+| Vision and Scope | Requirements method associated with Karl Wiegers | Method, not standard | Concise objectives, success measures, vision, scope, risks, and stakeholder alignment | It does not by itself guarantee coverage of every applicable BRS concern |
+| Business Case or Project Charter | Investment and project-governance practice | Depends on the governance framework | Funding, authorization, ownership, expected value, schedule, and project constraints | It can authorize work without specifying the complete business behavior to be governed |
+| Product Goal | Scrum Guide | Standard within Scrum, but not a separate Scrum artifact | Focusing the Product Backlog on a future product state | It is intentionally more concise than a controlled business baseline |
+| Product Vision or one-pager | Product practice | No single normative definition | Fast communication and executive alignment | It can omit material rules, processes, constraints, and decision authority |
+| PRD — Product Requirements Document | Product-management and vendor practice | No single normative definition | Describing a product or feature | Its scope and requirements level vary by organization and template |
+| ConOps — Concept of Operations | Systems-engineering practice | Defined in systems-engineering contexts | Explaining intended system use and operation | It provides an operational viewpoint rather than the complete business-management baseline |
+| Use Case or User Story | Requirements and agile techniques | Defined techniques, not complete business baselines | Describing an actor goal, interaction, or small unit of value | It cannot establish the full initiative purpose, authority, scope, policies, and constraints |
 
-## When to Use
+## When to Use a BRS
 
-Use a BRS as the first controlled baseline when:
+Choose a BRS as the first controlled artifact when:
 
-- the incoming request mixes business and solution detail;
-- several teams, systems, business units, or channels are affected;
-- the initiative contains many rules, exceptions, or operational modes;
-- scope and non-goals need explicit agreement;
-- regulatory, contractual, or audit traceability matters;
-- later StRS, SyRS, SRS, backlog, and test artifacts need a stable source;
-- the initiative can be stopped or reshaped if the business case is not valid.
+- the incoming request mixes business intent and proposed implementation;
+- several business units, teams, systems, channels, or external parties are affected;
+- material policies, rules, exceptions, constraints, or operational modes must be governed;
+- scope and exclusions require explicit agreement;
+- regulatory, contractual, safety, or audit assurance matters;
+- no existing approved artifact establishes the required business baseline;
+- the approving authority must be able to stop or reshape the initiative at the business level.
 
-## When Not to Use
+## When Not to Create a New BRS
 
-Do not create a large standalone BRS merely to satisfy a document checklist when:
+Do not create a standalone BRS merely to satisfy a document checklist when:
 
 - the change is small, local, reversible, and already has an agreed business objective and boundary;
-- an existing approved artifact already covers the applicable BRS content;
-- the initiative is an operational incident fix with no change to business intent;
-- a higher-level BRS already governs the work and the current task only needs stakeholder or solution-level refinement.
+- an existing approved BRS or equivalent governed artifact covers the initiative;
+- the work restores already-approved behavior without changing business intent;
+- the immediate decision concerns investment authorization, product direction, or operational use and the corresponding governed artifact is sufficient;
+- the organization uses another named artifact that demonstrably covers the applicable BRS concerns and has clear ownership and approval.
 
-In these cases, link to the existing baseline and document only the delta. The goal is controlled information, not document proliferation.
-
-## How It Works
-
-Separate the source from the baseline and separate requirements levels:
-
-```text
-Raw request, policy, business case, evidence
-                    |
-                    v
-        BRS — business-management baseline
-                    |
-                    v
-        StRS — stakeholder needs and usage
-                    |
-                    v
-         SyRS — system requirements
-                    |
-                    v
-        SRS — software requirements
-                    |
-                    v
-       backlog, acceptance, and tests
-```
-
-This is a requirements-level dependency map, not a mandatory waterfall. ISO/IEC/IEEE 29148 allows the processes and information items to be developed iteratively and recursively. A discovery finding at the SRS or test level can reveal a missing business rule and trigger a controlled update to the BRS.
-
-The BRS also does not have to be one Word document. It can be a logically organized set of linked pages, models, registers, and tables if the required content is identifiable, accessible, versioned, and traceable.
-
-## Tailoring the Baseline
-
-Use the ISO BRS as a coverage model, not as a command to reproduce every heading for every change. Tailoring determines how much controlled information the initiative needs based on its scope, uncertainty, number of affected parties, consequences of error, and assurance obligations.
-
-| Situation | Practical Form | Required Control |
-|---|---|---|
-| Small governed change | Record a [BRS Delta](04-working-with-brs-deltas.md) against an existing approved baseline | Preserve the source, state the changed objective, rule, boundary, or assumption, and identify the governing baseline |
-| Typical initiative | Complete the core BRS template as one readable page | Cover the problem, outcomes, scope, stakeholders, terms, target behavior, rules, scenarios, constraints, questions, and approval |
-| Complex or high-assurance initiative | Add the applicable conditional modules and an explicit ISO coverage review | Record evidence or a justified `Not applicable` decision for every applicable concern and maintain formal traceability |
-
-Start with one page. Extract a glossary, rule catalog, scenario set, decision table, process model, or lifecycle model only when it is reused, has a separate owner or approval cycle, needs a specialized tool, or makes the baseline easier to review. The result remains one logical BRS even when its information is stored across linked artifacts.
-
-For a large baseline, use business capabilities as the navigation layer: keep local owners, rules, scenarios, models, and questions in Capability Specifications, and record shared behavior once as a cross-cutting concern.
-
-Do not present a reduced profile as an industry artifact called `BRS-lite`. State the local tailoring decision and the reasons for it. The [tailoring guide](03-tailoring-the-business-requirements-baseline.md) explains capability decomposition, model selection, and physical splitting.
-
-## ISO and Wiegers Mapping
-
-Use the ISO BRS as the coverage model and Vision and Scope as a usability overlay.
-
-| ISO BRS Concern | Wiegers Contribution | Practical Result |
-|---|---|---|
-| Business purpose | Background and business opportunity | A clear explanation of the problem, opportunity, and reason to act now |
-| Mission, goals, and objectives | Business Objectives (`BO`) and Success Metrics (`SM`) | Outcomes become measurable instead of aspirational |
-| Major stakeholders | Stakeholder profiles | Stakeholder value, interests, attitudes, and constraints become explicit |
-| Business environment and project constraints | Assumptions, dependencies, Business Risks (`RI`), and project priorities | Uncertainty and decision constraints become visible |
-| High-level operational concept | Vision statement and major Features (`FE`) | The proposed direction is understandable without becoming a system design |
-| Business scope and lifecycle concepts | Initial-release scope, subsequent-release scope, exclusions, and deployment considerations | Boundaries and sequencing become concrete |
-| Business policies and rules | Traceable rule identifiers and linked rule or decision models | Rules remain reusable and do not disappear inside prose or use cases |
-
-The prefixes `BO`, `SM`, `RI`, and `FE` are practical identifiers associated with Wiegers-style examples. They are not ISO identifiers. A document key such as `BRS-<initiative-key>` and rule prefixes such as `BR-` are local conventions and must be declared as such.
+The goal is controlled business information and unambiguous authority, not document proliferation.
 
 ## Trade-offs
 
-| Choice | Advantages | Costs and Limitations |
+| Choice | Advantage | Limitation |
 |---|---|---|
-| ISO BRS without practical tailoring | Strong coverage, shared standards vocabulary, good auditability | Can become formal, verbose, and hard for stakeholders to review |
-| Vision and Scope alone | Concise, outcome-oriented, easy to discuss | May leave gaps against the applicable ISO BRS content |
-| ISO BRS with Wiegers enhancements | Standards-based coverage plus measurable and readable business framing | Requires an explicit mapping so contributors know what is normative, methodological, or local |
-| One mixed BRD/PRD | Fewer pages and familiar product workflow | Requirements levels blur, traceability weakens, and the document can become a solution specification prematurely |
+| New BRS | Explicit business coverage, ownership, and review boundary | Unnecessary overhead when a governing baseline already exists or the change is trivial |
+| Existing governed baseline | Avoids duplication and competing sources of truth | Requires confidence that the existing artifact covers the initiative and remains current |
+| Business Case or Project Charter | Clear investment and authorization decision | May not establish governed business behavior |
+| Product Vision, one-pager, or Product Goal | Fast alignment around direction | May leave scope, rules, constraints, and authority implicit |
+| ConOps | Strong operational viewpoint | Does not replace the broader business baseline |
+| Local BRD or PRD | Familiar organizational workflow | Meaning and coverage must be declared because the names are not universal standards |
 
 ## Common Mistakes
 
-- Calling every statement supplied by a business stakeholder a business requirement. A requested screen, field, or API is usually a solution idea, not a business outcome.
-- Treating BRD and BRS as universal synonyms without defining the local vocabulary.
-- Claiming that Vision and Scope is an ISO artifact or that it is identical to a BRS.
-- Saying that ISO requires every initiative to begin with one physical BRS document.
-- Treating Product Goal as a standalone Scrum artifact or as a complete business baseline.
-- Using invented terms such as `BRS-lite` or `BP-XXX` without identifying them as local conventions.
-- Filling the BRS with database, API, service, and UI design before stakeholder and system requirements have been separated.
-- Removing business processes, rules, constraints, or operational modes merely to make the document "lean."
-- Copying information from a business case or policy instead of linking to the authoritative source.
-- Baseline approval without measurable objectives, explicit exclusions, or owners for open questions.
+- Treating every statement supplied by a business stakeholder as a business requirement.
+- Treating BRD, BRS, and PRD as universal synonyms without defining the local vocabulary.
+- Claiming that Vision and Scope is an ISO artifact or is identical to a BRS.
+- Treating Product Goal as a standalone Scrum artifact or a complete business baseline.
+- Assuming every initiative must start with a large standalone BRS.
+- Renaming a raw request or proposed solution to `BRS` without analysis and approval.
+- Creating a second baseline when an authoritative one already covers the initiative.
+- Selecting an artifact because a template is familiar rather than because it supports the required decision.
+- Treating a vendor template as a normative industry definition.
 
-## Practical Checklist
+## Selection Checklist
 
-A first controlled baseline is ready for review when:
+Before selecting the first controlled artifact, confirm:
 
-- [ ] The original request and every authoritative source are preserved and linked.
-- [ ] The business purpose explains why the change exists without relying on implementation detail.
-- [ ] Business objectives have observable success metrics.
-- [ ] The business domain, included scope, exclusions, and later-release scope are explicit.
-- [ ] Major stakeholders and their decision rights are known.
-- [ ] Relevant business processes, policies, and rules are named and traceable.
-- [ ] Assumptions, dependencies, constraints, risks, and operational modes are separated.
-- [ ] The high-level operational concept explains the intended direction without becoming a technical design.
-- [ ] Every applicable BRS concern is covered directly, linked to a governing artifact, or explicitly marked not applicable when assurance requires a coverage review.
-- [ ] Open questions have owners and decision dates.
-- [ ] The business owner can approve, reject, or reshape the initiative using this baseline.
-- [ ] Downstream stakeholder and solution requirements can trace back to a business objective, rule, or constraint.
-
-Use the [Business Requirements Specification template](02-business-requirements-specification-standard.md) to apply this checklist.
+- [ ] The decision that the artifact must support is explicit.
+- [ ] The original request and authoritative sources are identifiable.
+- [ ] The required level is business purpose and governance rather than product, operational, interaction, or implementation detail.
+- [ ] The affected business boundary and number of participating authorities are understood well enough to judge the needed control.
+- [ ] Regulatory, contractual, safety, audit, or other assurance obligations are known.
+- [ ] Existing governed artifacts have been checked before creating a new baseline.
+- [ ] The selected artifact has a declared owner, approver, scope, and meaning in the organization.
+- [ ] Local or vendor terminology is not presented as an ISO or framework standard.
 
 ## Example
 
-Consider this fictional and deliberately simplified request:
+Consider this fictional source request:
 
 > Add an availability flag to each catalog item and hide unavailable items in all customer channels. Existing owners must still see their items and history.
 
-This is valuable source material, but it is not yet a business-level baseline. It already proposes a data field and combines a general visibility rule with ownership and history exceptions.
+Choose a BRS as the first controlled artifact because the request:
 
-An analyzed BRS fragment could look like this:
+- affects several customer channels;
+- proposes implementation before the governed business behavior is agreed;
+- contains a general restriction and material ownership exceptions;
+- requires an explicit business boundary and policy authority;
+- can produce inconsistent business outcomes if interpreted independently.
 
-### Business Purpose
-
-Provide one governed way to control whether catalog items are offered in each customer channel while preserving access required for existing ownership and historical records.
-
-### Business Objective and Success Metric
-
-`BO-1` — Eliminate inconsistent channel-specific handling of catalog-item availability.
-
-`SM-1` — Within three months of rollout, 100% of supported customer channels use the governed availability decision, and configuration-related visibility incidents decrease by at least 80% from the agreed baseline.
-
-These numbers are illustrative. A real BRS must establish the baseline, measurement source, owner, and target date with stakeholders.
-
-### Scope
-
-In scope:
-
-- business decisions that determine whether an item is offered in a customer channel;
-- exceptions required for existing ownership and historical records;
-- business ownership of the availability policy.
-
-Out of scope:
-
-- channel UI redesign;
-- database schema and API contract design;
-- unrelated eligibility and pricing policies.
-
-### Business Rules
-
-`BR-1` — An item that is not available in a channel must not be offered for a new transaction in that channel.
-
-`BR-2` — Availability for new transactions must not remove an existing owner's access to owned items or historical records.
-
-The `BR-` prefix is a declared local convention, not an ISO or Wiegers requirement.
-
-### Risk and Major Feature
-
-`RI-1` — Channels may interpret the availability policy differently during migration, producing inconsistent customer outcomes.
-
-`FE-1` — Govern catalog-item availability by customer channel through one business-owned policy.
-
-The later StRS, SyRS, and SRS determine user interactions, system behavior, data, interfaces, errors, and implementation constraints. The BRS remains the source of the business intent and boundary.
+The proposed flag remains part of the source request. Selecting the BRS establishes which artifact must resolve the business-level ambiguity; it does not approve the proposed data field or technical approach.
 
 ## Interview Angle
 
-A concise explanation:
-
-> I separate the raw request from the first analyzed baseline. If the initiative needs a formal business-level foundation, I use the BRS information model from ISO/IEC/IEEE 29148. I apply Wiegers's Vision and Scope practices to make objectives measurable and boundaries readable, but I do not treat Vision and Scope as an ISO artifact. Stakeholder, system, software, backlog, and test artifacts then trace back to that baseline.
+> I choose the first requirements artifact by the decision and authority it must support, not by the most familiar acronym. When a new initiative needs a controlled business-level foundation, I use the BRS information item defined by ISO/IEC/IEEE 29148. When an existing baseline or a narrower governed artifact is sufficient, I reference that instead of creating a competing document.
 
 ## Related Topics
 
 - [Business Requirements Specification template](02-business-requirements-specification-standard.md)
-- [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md)
-- [Working with BRS Deltas](04-working-with-brs-deltas.md)
-- [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
-- [Requirements discovery techniques](requirements-discovery-techniques.md)
-- [System boundary checklist](system-boundary-checklist.md)
 - [Product and Requirements index](README.md)
