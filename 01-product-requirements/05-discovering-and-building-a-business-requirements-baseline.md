@@ -30,8 +30,12 @@ sources -> questions -> elicitation
 
 Specification:
 problem and need -> outcome and value -> scope
-                 -> capabilities
-                 -> rules, scenarios, and constraints
+                 -> capabilities -> scenarios -> downstream requirements
+                         |              |
+                         +-- governed by rules and constraints
+                         +-- uses business information
+                         +-- triggered by business events
+                         +-- measured by success evidence
                  -> verification -> validation -> approval
 ```
 
@@ -57,6 +61,7 @@ The BRS is the approved business-level result of this work. Interview notes, obs
 |---|---|---|
 | [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) and the [IEEE record](https://standards.ieee.org/ieee/29148/6937/) | Business or mission analysis, stakeholder needs and requirements definition, system requirements definition, and BRS, StRS, SyRS, and SRS content | Normative requirements-engineering process and information-item context |
 | [BABOK Guide v3](https://www.iiba.org/knowledgehub/business-analysis-body-of-knowledge-babok-guide/) | Planning and Monitoring, Elicitation and Collaboration, Requirements Life Cycle Management, Strategy Analysis, Requirements Analysis and Design Definition, and Solution Evaluation | Business-analysis workflow around the BRS |
+| [The TOGAF Standard](https://publications.opengroup.org/standards/togaf) | Business capabilities as a business-architecture view distinct from processes and solution components | Capability-centered decomposition and traceability |
 | [IIBA Business Analysis Standard](https://www.iiba.org/knowledgehub/the-business-analysis-standard/) | Accessible task cards for the 30 BABOK tasks and current IIBA requirements classification | Practical task and terminology reference |
 | [IIBA Global Business Analysis Core Standard](https://www.iiba.org/globalassets/standards-and-resources/core-standard/iiba-core-standard.pdf) | BACCM, requirements categories, and the six BABOK knowledge areas | Completeness lens for interviews and analysis |
 | [IREB Requirements Elicitation](https://cpre.ireb.org/en/concept/requirements-elicitation) | Structured source management, technique selection, conflict resolution, and validation | Elicitation planning and source control |
@@ -226,6 +231,130 @@ Source
 
 Do not duplicate entire downstream repositories. Keep stable links, aggregate status, and the evidence needed for impact analysis.
 
+## Capability-Centered Information Model
+
+A business capability answers:
+
+> What must the organization be able to do or ensure to produce a business outcome?
+
+It is a stable business ability, not a summary of one process and not a set of rules with a label. The capability normally remains recognizable when a workflow, team structure, or supporting system changes. People, processes, information, and technology can all contribute to exercising it.
+
+Use these distinctions consistently:
+
+| Element | Question answered | Example |
+|---|---|---|
+| Business capability | What must the business be able to do? | Determine whether a customer may access an offering |
+| Scenario or process | How is the capability exercised in a particular context? | A customer attempts to open a restricted offering |
+| Business rule | Which governed condition, permission, prohibition, derivation, or obligation applies? | Only an eligible customer may access the offering |
+| Business information | Which business facts does the capability use or produce? | Customer eligibility and offering restrictions |
+| Business event | What starts the behavior or changes which behavior applies? | Customer requests access or a restriction becomes effective |
+| System requirement | What must a solution do to support the business behavior? | The system shall obtain the customer's current eligibility status |
+
+Treat the capability as the main node of business decomposition and traceability:
+
+```text
+Business capability
+    = outcome and boundary
+    + owner and participants
+    + inputs and business information
+    + triggering events
+    + business scenarios
+    + governing business rules
+    + constraints and dependencies
+    + success evidence
+    + links to downstream requirements
+```
+
+This expression is a completeness checklist, not a claim that a capability is mechanically derived from its rules. Rules govern and constrain the capability; scenarios demonstrate how it is exercised; information and events supply its business context; system requirements implement the necessary solution behavior.
+
+Use explicit relationships when maintaining formal traceability:
+
+| From | Relationship | To |
+|---|---|---|
+| Business outcome | `requires` | Capability |
+| Capability | `is governed by` | Business rule |
+| Capability | `is exercised through` | Scenario or process |
+| Capability | `uses` or `produces` | Business information |
+| Capability | `is triggered by` | Business event |
+| Capability | `is measured by` | Success evidence |
+| Scenario | `applies` | Business rule |
+| Scenario | `is implemented by` | System requirement |
+| Business rule | `is enforced by` | System requirement |
+
+Capabilities can be decomposed into smaller business abilities when each child has its own coherent outcome and boundary. Stop before the names become technical actions such as `Call API`, `Read flag`, `Write record`, or `Display screen`; those are solution responsibilities.
+
+## Recommended Working Directory
+
+The BRS is a logical baseline, not a mandatory folder tree. ISO 29148 does not prescribe this layout. Start with one controlled page and one working page; expand the package only when ownership, reuse, tooling, assurance, or review size justifies the split described in [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md).
+
+A small initiative can start with:
+
+```text
+<baseline-id>/
+  README.md        package identity, owner, status, and navigation
+  brs.md           reviewable Business Requirements Specification
+  working.md       sources, questions, elicitation, analysis, and decisions
+```
+
+When a single page becomes difficult to own or review, evolve toward:
+
+```text
+<baseline-id>/
+  README.md
+
+  baseline/
+    brs.md
+    capabilities/
+      CAP-01-<capability-name>/
+        README.md
+        rules.md                 optional split
+        scenarios.md             optional split
+        models/                  optional decision, state, process, or information models
+      CAP-02-<capability-name>/
+        README.md
+    cross-cutting/
+      README.md                  shared rules, scenarios, information, events, and decisions
+    models/                      initiative-wide models only
+
+  working/
+    source-register.md
+    research-questions.md
+    elicitation-log.md
+    analysis-register.md
+    decisions-and-conflicts.md
+    traceability.md
+
+  downstream/
+    README.md                    links and aggregate status for StRS, SyRS, SRS, and transition work
+
+  evidence/
+    README.md                    controlled links to delivery, verification, and outcome evidence
+```
+
+Use the directories as ownership boundaries, not as lifecycle stages through which files are copied:
+
+| Location | Fill with | Do not put here |
+|---|---|---|
+| Root `README.md` | Baseline ID, version, owner, governing baseline, status, entry points, and access notes | Detailed requirements or duplicated registers |
+| `baseline/brs.md` | Approved initiative context, outcomes, scope, capability map, cross-cutting concerns, readiness, and approval | Raw notes or detailed solution design |
+| `baseline/capabilities/<CAP-ID>/README.md` | One capability's outcome, boundary, owner, participants, information, events, rules, scenarios, evidence, and downstream links | Initiative-wide duplicates or component responsibilities |
+| Capability `rules.md`, `scenarios.md`, or `models/` | Material extracted from the capability page because size, reuse, ownership, or tooling requires it | One-file-per-item fragmentation by default |
+| `baseline/cross-cutting/` | Behavior that genuinely governs or spans several capabilities | Copies of local or external rules |
+| `working/` | Raw, confirmed, disputed, analyzed, rejected, deferred, and open discovery information with source lineage | Content presented as approved merely because it is recorded |
+| `downstream/` | Stable links, relationship type, owner, version, and aggregate status of downstream specifications | Copies of downstream repositories |
+| `evidence/` | Links to approval, delivery, verification, and outcome evidence with access and retention notes | Uncontrolled sensitive evidence or copied authoritative records |
+
+Fill the package in this order:
+
+1. Create the root identity and the working registers before elicitation.
+2. Draft the problem, outcome, success measures, scope hypothesis, stakeholders, and shared vocabulary in `brs.md`.
+3. Add the Capability Map, then fill one capability page at a time from confirmed and analyzed information.
+4. Move genuinely shared behavior into `cross-cutting/`; do not copy it into every capability.
+5. Add downstream and evidence links as those artifacts appear, preserving the capability relationship.
+6. Baseline only the reviewable `baseline/` content and its controlled references. Retain working history according to the agreed information-management policy.
+
+If an authoritative policy, rule catalog, evidence store, or downstream specification already exists elsewhere, link to its stable identifier and version. Do not create a second source of truth merely to make the directory look complete.
+
 ## How It Works
 
 ### 0. Choose the Baseline Form
@@ -236,7 +365,7 @@ Select:
 - a capability module within an existing logical BRS;
 - a [BRS Delta](04-working-with-brs-deltas.md) for a change to an existing baseline.
 
-Use a separate capability module only when the area has a coherent outcome, boundary, owner, and rule set. A screen, API, service, database change, or delivery task is not by itself a business capability.
+Use a separate capability module only when the area has a coherent outcome, boundary, owner, and business behavior. Rules, scenarios, information, events, and evidence elaborate that ability; no single one defines it alone. A screen, API, service, database change, or delivery task is not by itself a business capability.
 
 Output:
 
@@ -456,8 +585,13 @@ For each capability define:
 - owned behavior and explicit boundary;
 - business owner;
 - affected stakeholders;
+- inputs and business information used or produced;
+- events that trigger the capability or change its applicable behavior;
+- governing business rules and constraints;
+- scenarios through which the capability is exercised;
 - contribution to initiative value;
 - success evidence;
+- downstream requirements or specifications that support it, when they exist;
 - dependencies on other capabilities.
 
 Gate:
@@ -513,11 +647,13 @@ Transform confirmed information into the BRS capability block:
 - Success Evidence;
 - Capability Stakeholders and Decision Rights;
 - Local Terms and Business Concepts;
+- Inputs, Business Information, and Events;
 - Capability Rules;
 - Capability Scenarios;
 - Applicable Models;
 - Decisions and Open Questions;
-- Local Constraints, Assumptions, Dependencies, and Risks.
+- Local Constraints, Assumptions, Dependencies, and Risks;
+- Downstream Requirements and Evidence Links, when they exist.
 
 Route detailed stakeholder, solution, transition, and design information to their owning artifacts.
 
@@ -533,13 +669,15 @@ With business participants and owners, ask:
 
 Repeat the cycle while new evidence materially changes the outcome, boundary, main rules, material scenarios, or stakeholder agreement.
 
-### 11. Formalize Business Rules Separately
+### 11. Formalize Business Rules as Independent Governed Knowledge
 
 Discover rules together with processes and scenarios, but manage them as independent business knowledge:
 
 ```text
 Terms -> Facts -> Decisions and constraints -> Rules
 ```
+
+Independent does not mean peer to a capability in the decomposition hierarchy. A capability describes the business ability; a rule independently states the governed logic that applies whenever that ability or a related scenario is exercised.
 
 For every rule record:
 
@@ -724,7 +862,7 @@ A BRS is ready for approval when:
 - [ ] **Change** — The required business transformation is understandable.
 - [ ] **Context** — Material internal, external, operational, and lifecycle conditions are represented.
 - [ ] **Stakeholders** — Relevant classes, sources, rule owners, and decision rights are covered.
-- [ ] **Capability** — The capability map covers scope using business outcomes rather than solution components.
+- [ ] **Capability** — The capability map covers scope using business outcomes rather than solution components, and each capability has enough information, events, rules, scenarios, and evidence to explain the ability.
 - [ ] **Source** — Every material element has a source or explicit rationale.
 - [ ] **Classification** — Business, stakeholder, solution, and transition requirements are not mixed.
 - [ ] **Rule** — Rules are declarative, scoped, sourced, and confirmed by their owners.
@@ -754,6 +892,8 @@ A BRS is ready for approval when:
 - Interviewing only the sponsor or only current users.
 - Asking stakeholders for facts that authoritative documents or data can answer more reliably.
 - Converting a stakeholder need into a business rule without a governing source or owner.
+- Treating a capability as merely the sum of its rules or naming one after a technical function.
+- Keeping a flat initiative-wide list of rules and scenarios after coherent capability boundaries have emerged.
 - Using one generic `In Progress` status for elicitation, analysis, approval, delivery, and value realization.
 - Treating provisional scope as final before current-state and capability analysis.
 - Mixing transition requirements with durable target behavior.
@@ -766,13 +906,13 @@ A BRS is ready for approval when:
 
 ## Interview Angle
 
-> I do not fill the BRS as a questionnaire. I use BABOK to plan the analysis, manage elicitation, analyze current and future states, classify and trace requirements, and verify and validate the result. I use ISO 29148 as the BRS coverage model. Interview statements stay raw until confirmed and analyzed; business rules require business authority; stakeholder, solution, transition, and design information is routed to the appropriate downstream artifact. The approved BRS then provides the measures used to evaluate whether the delivered change created the intended value.
+> I do not fill the BRS as a questionnaire. I use BABOK to plan the analysis, manage elicitation, analyze current and future states, classify and trace requirements, and verify and validate the result. I use ISO 29148 as the BRS coverage model and business capabilities as the main decomposition and traceability nodes. Interview statements stay raw until confirmed and analyzed; business rules govern capabilities and require business authority; stakeholder, solution, transition, and design information is routed to the appropriate downstream artifact. The approved BRS then provides the measures used to evaluate whether the delivered change created the intended value.
 
 ## Related Topics
 
 - [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
-- [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md)
-- [Business Requirements Specification template](03-business-requirements-specification-template.md)
+- [Business Requirements Specification standard](02-business-requirements-specification-standard.md)
+- [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
 - [System boundary checklist](system-boundary-checklist.md)

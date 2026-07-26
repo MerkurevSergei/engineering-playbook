@@ -126,7 +126,7 @@ Start with one page. Extract a glossary, rule catalog, scenario set, decision ta
 
 For a large baseline, use business capabilities as the navigation layer: keep local owners, rules, scenarios, models, and questions in Capability Specifications, and record shared behavior once as a cross-cutting concern.
 
-Do not present a reduced profile as an industry artifact called `BRS-lite`. State the local tailoring decision and the reasons for it. The [tailoring guide](02-tailoring-the-business-requirements-baseline.md) explains capability decomposition, model selection, and physical splitting.
+Do not present a reduced profile as an industry artifact called `BRS-lite`. State the local tailoring decision and the reasons for it. The [tailoring guide](03-tailoring-the-business-requirements-baseline.md) explains capability decomposition, model selection, and physical splitting.
 
 ## ISO and Wiegers Mapping
 
@@ -183,7 +183,7 @@ A first controlled baseline is ready for review when:
 - [ ] The business owner can approve, reject, or reshape the initiative using this baseline.
 - [ ] Downstream stakeholder and solution requirements can trace back to a business objective, rule, or constraint.
 
-Use the [Business Requirements Specification template](03-business-requirements-specification-template.md) to apply this checklist.
+Use the [Business Requirements Specification template](02-business-requirements-specification-standard.md) to apply this checklist.
 
 ## Example
 
@@ -245,8 +245,8 @@ A concise explanation:
 
 ## Related Topics
 
-- [Business Requirements Specification template](03-business-requirements-specification-template.md)
-- [Tailoring the Business Requirements Baseline](02-tailoring-the-business-requirements-baseline.md)
+- [Business Requirements Specification template](02-business-requirements-specification-standard.md)
+- [Tailoring the Business Requirements Baseline](03-tailoring-the-business-requirements-baseline.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
 - [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
