@@ -2,7 +2,7 @@
 
 Requirements discovery is the work of turning scattered signals into testable product and engineering decisions.
 
-Use this page as a technique-selection companion to [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md). An interview statement is a raw input until it is confirmed, analyzed, classified, verified, and validated.
+Use this page as a technique-selection companion to [Discovering and Building a Business Requirements Baseline](03-discovering-and-building-a-business-requirements-baseline.md). An interview statement is a raw input until it is confirmed, analyzed, classified, verified, and validated.
 
 ## Technique Map
 
