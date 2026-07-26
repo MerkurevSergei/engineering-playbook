@@ -61,8 +61,8 @@ Tailoring is part of the discovery workflow, not a separate requirements process
 
 | Tailoring decision | Start with | Expand when |
 |---|---|---|
-| Baseline form | One BRS for a new governed business boundary | Use a capability module under an existing baseline or a BRS Delta when a governing baseline already exists |
-| Capability structure | One inline business capability when it provides enough context | Add a Capability Map and linked modules when several coherent outcomes, owners, rule sets, or review boundaries emerge |
+| Baseline lifecycle | One BRS when no governed baseline covers the affected business boundary | Use a BRS Delta when an existing baseline may change; reference the baseline without changing it when work only realizes or restores approved behavior |
+| Capability packaging | One inline business capability when it provides enough context | Add a Capability Map and linked modules when several coherent outcomes, owners, rule sets, or review boundaries emerge |
 | Models | Clear narrative and compact tables | Add decision, state, process, information, event, or scenario models when prose hides material combinations, transitions, handoffs, or meaning |
 | Physical package | One controlled baseline page and one working page | Split by ownership, reuse, independent approval, specialized tooling, assurance, access control, or review size |
 | Traceability | Stable source and downstream links | Add a formal traceability register when regulation, contract, safety, audit, or cross-artifact impact analysis requires it |
@@ -385,22 +385,40 @@ If an authoritative policy, rule catalog, evidence store, or downstream specific
 
 ## How It Works
 
-### 0. Choose the Baseline Form
+### 0. Start the Intake and Choose the Baseline Form
 
-Select:
+Do not choose the baseline form from a ticket title or proposed solution alone. First open an intake entry in the working material and preserve the original request as a source. The choice remains provisional until source review and the sponsor interview confirm it.
 
-- a new BRS for a new controlled business boundary;
-- a capability module within an existing logical BRS;
-- a [BRS Delta](04-working-with-brs-deltas.md) for a change to an existing baseline.
+1. Capture the original request in its own wording, its source, date, requester, and links to supplied evidence.
+2. Hold a short intake conversation with the requester or sponsor. Establish what decision is expected, why it is needed now, what problem or outcome is assumed, which business area is affected, and who may own it.
+3. Request the known governing materials: current BRS and deltas, business case or product direction, policies and contracts, process or operating guidance, metrics and incident evidence, and prior relevant decisions. Record each source as available, pending, or unknown; do not wait for every item before continuing.
+4. Check the requirements repository or artifact catalog for an existing governed baseline, its exact version, boundary, and owner. Treat screens, APIs, services, data fields, and delivery dates from the request as hypotheses until their business rationale is analyzed.
 
-Use a separate capability module only when the area has a coherent outcome, boundary, owner, and business behavior. Rules, scenarios, information, events, and evidence elaborate that ability; no single one defines it alone. A screen, API, service, database change, or delivery task is not by itself a business capability.
+Choose the baseline approach:
+
+| Finding | Action |
+|---|---|
+| No governed baseline covers the affected business boundary | Open a new BRS |
+| A governed baseline exists and the request may change business intent, outcomes, capabilities, rules, scenarios, or constraints | Open a [BRS Delta](04-working-with-brs-deltas.md) against its exact version |
+| A governed baseline already defines the required business behavior and the request only realizes or restores it | Reference the baseline; do not create competing BRS content |
+
+If the evidence is insufficient to choose, record the approach as `Undetermined` and add the missing facts to the Research Question Backlog. Continue planning and source collection, but do not invent a boundary or open a BRS or Delta merely to keep work moving.
+
+A capability module is a packaging decision, not an alternative change lifecycle. Create or modify one within the selected BRS or Delta only when the area has a coherent outcome, boundary, owner, and business behavior. A screen, API, service, database change, or delivery task is not by itself a business capability.
 
 Output:
 
-- draft baseline ID;
-- business boundary hypothesis;
-- business owner;
-- governing baseline and base version, when applicable.
+- preserved copy or versioned reference to the original request;
+- expected decision and problem or outcome hypothesis;
+- provisional business boundary and business owner;
+- requested sources with availability status;
+- selected baseline approach and rationale;
+- draft baseline ID, or governing baseline and exact base version;
+- unresolved intake questions added to the Research Question Backlog.
+
+Exit condition:
+
+> The original request is preserved, initial evidence is requested, and the analyst can justify a new BRS, a BRS Delta, or no baseline change while naming the owner and applicable baseline version; otherwise, the missing decision evidence is explicit.
 
 ### 1. Plan the Business Analysis
 
@@ -426,7 +444,7 @@ Exit condition:
 
 > Participants know what will be produced, how their information will be used, and who has decision authority.
 
-### 2. Collect Sources Before Interviewing
+### 2. Complete Initial Source Collection Before Detailed Elicitation
 
 Review:
 
@@ -440,7 +458,7 @@ Review:
 - existing systems and operational procedures;
 - previous decisions, assumptions, and known constraints.
 
-Create the initial Source Register and Research Question Backlog.
+Complete the initial Source Register and expand the Research Question Backlog created during intake.
 
 Do not ask participants to reproduce facts that can be obtained more reliably from authoritative documents or data. Use interview time to interpret, challenge, and complete the evidence.
 
