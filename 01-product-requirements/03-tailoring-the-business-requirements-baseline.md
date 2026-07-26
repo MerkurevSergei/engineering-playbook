@@ -57,7 +57,7 @@ Tailoring removes unnecessary duplication. It does not remove information that i
 | Situation | Form |
 |---|---|
 | Small governed change | [BRS Delta](04-working-with-brs-deltas.md) linked to the existing baseline |
-| Typical initiative | Core [BRS template](03-business-requirements-specification-template.md), normally with one inline capability |
+| Typical initiative | Core [BRS standard](02-business-requirements-specification-standard.md), normally with one inline capability |
 | Large initiative | Capability Map, scoped Capability Specifications, and Cross-Cutting Concerns |
 | Complex or high-assurance initiative | Capability-centered baseline plus triggered models, formal traceability, and explicit ISO coverage review |
 
@@ -161,7 +161,7 @@ Keep the baseline in one page by default. Extract a linked artifact when at leas
 - it changes independently from the initiative page;
 - its size makes stakeholder review materially harder.
 
-There is no required folder tree and no required `traceability.yaml`. A document, wiki page, repository folder, model, or register is acceptable when the logical baseline remains identifiable, versioned, accessible, and traceable.
+There is no required folder tree and no required `traceability.yaml`. A document, wiki page, repository folder, model, or register is acceptable when the logical baseline remains identifiable, versioned, accessible, and traceable. For a concrete, non-normative starting layout, use the [Recommended Working Directory](05-discovering-and-building-a-business-requirements-baseline.md#recommended-working-directory).
 
 A Capability Specification follows the same rule: keep it inline until reuse, ownership, independent change, tooling, or readability justifies a linked page.
 
@@ -333,7 +333,7 @@ Later architecture work decides where the policy is evaluated, how data is obtai
 ## Related Topics
 
 - [Choosing the First Requirements Artifact](01-choosing-the-first-requirements-artifact.md)
-- [Business Requirements Specification template](03-business-requirements-specification-template.md)
+- [Business Requirements Specification standard](02-business-requirements-specification-standard.md)
 - [Working with BRS Deltas](04-working-with-brs-deltas.md)
 - [Discovering and Building a Business Requirements Baseline](05-discovering-and-building-a-business-requirements-baseline.md)
 - [Requirements discovery techniques](requirements-discovery-techniques.md)
