@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analyze Fixed Requirements Source"
+  short_description: "Extract traceable evidence from documents and artifacts"
+  default_prompt: "Use $analyze-fixed-requirements-source to review this fixed source and record traceable Evidence Items and coverage in Markdown."

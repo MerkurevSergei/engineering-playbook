@@ -11,6 +11,8 @@
 
 This package separates accepted business baseline content from working discovery information. File location does not by itself imply approval.
 
+Start or resume work from [work-status.md](work-status.md). It is a human-readable handoff page that summarizes coverage and the next action; authoritative item details remain in the linked registers and specifications.
+
 ## Project-wide BRS
 
 - [Governance](00-governance.md)
@@ -40,5 +42,6 @@ This package separates accepted business baseline content from working discovery
 - Keep raw, disputed, rejected, deferred, and open material in `working/`.
 - Add only accepted business information to the project-wide BRS or capability pages.
 - Give every item one primary home and link to it elsewhere.
+- Keep evidence processing separate from the lifecycle of derived BRS items.
 - Link authoritative external records by stable identifier and version instead of copying them.
 - Route detailed stakeholder, solution, transition, and design information to its owning downstream artifact.
