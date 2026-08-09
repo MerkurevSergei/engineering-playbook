@@ -16,7 +16,7 @@
 ## Design Principles
 
 1. Treat the BRS as one logical baseline, not as a mandatory folder tree.
-2. Separate source evidence and working analysis from accepted baseline content.
+2. Separate source evidence and working analysis from accepted baseline content, and keep a human-readable handoff page current.
 3. Give every information item one primary home and link to it elsewhere.
 4. Use capabilities as the main business decomposition nodes.
 5. Route stakeholder, solution, transition, and design information to their owning artifacts.
@@ -28,6 +28,7 @@
 ```text
 requirements/
   README.md
+  work-status.md
   00-governance.md
   01-purpose-scope-and-overview.md
   02-stakeholders-and-business-structure.md
@@ -51,8 +52,9 @@ requirements/
   working/
     README.md
     source-register.md
+    activity-register.md
     research-questions.md
-    elicitation-log.md
+    evidence-register.md
     analysis-register.md
     decisions-and-conflicts.md
     traceability.md
@@ -69,41 +71,37 @@ requirements/
     README.md
 ```
 
-Root numbered files contain project-wide BRS information. `capabilities/` contains coherent local business abilities. `working/` contains raw-to-analyzed discovery history, including source material links. `downstream/` points to detailed StRS, SyRS, SRS, transition, and design artifacts. `evidence/` points to approval, delivery, verification, and business-outcome evidence. `changes/` records proposed baseline deltas without editing an approved baseline silently.
+`work-status.md` is the human handoff entry point and summary, not a duplicate source of truth. Root numbered files contain project-wide BRS information. `capabilities/` contains coherent local business abilities. `working/` contains source-to-analysis history and authoritative workflow registers. `downstream/` points to detailed StRS, SyRS, SRS, transition, and design artifacts. `evidence/` points to approval, delivery, verification, and business-outcome evidence. `changes/` records proposed baseline deltas without editing an approved baseline silently.
 
 The source material folder is deliberately nested under `working/`: possession of a document, quote, or observation does not make its content accepted business intent.
 
 ## Lifecycle States
 
-Use explicit transitions:
+Use entity-specific status dimensions instead of forcing source evidence and requirements through one lifecycle.
 
 ```text
-Raw -> Confirmed -> Analyzed -> Accepted -> Baselined
-          |             |
-          |             +-> Rejected
-          |             +-> Deferred
-          |             +-> Open question
-          |
-          +-> Disputed
+Source review:          Unreviewed -> Partial -> Complete
+Evidence confirmation: Unconfirmed -> Confirmed/Authenticated
+Evidence processing:   New -> In analysis -> Routed -> Closed
+Analysis item:         Draft -> Complete/Superseded
+BRS item:              Draft -> Verified -> Validated -> Approved -> Baselined
+Question:              Open -> Assigned -> Answered -> Resolved
 ```
 
-- `Raw`: captured but not confirmed.
-- `Confirmed`: the source agrees the record is accurate, or evidence is authenticated.
-- `Analyzed`: classified, normalized, scoped, and checked for implications.
-- `Accepted`: authorized business owner or decision authority accepts the item.
-- `Baselined`: included in an approved controlled baseline version.
-- `Disputed`: sources or authorities disagree.
-- `Rejected`: explicitly not adopted; retain rationale and lineage.
-- `Deferred`: valid work postponed with owner or revisit condition.
-- `Open question`: a material uncertainty prevents completion.
+- Confirmation establishes accurate capture of a live contribution.
+- Authentication establishes artifact identity, version, and locator; it does not prove the artifact is correct or authoritative for every decision.
+- Source `Complete` applies only to its declared review scope and means material findings were captured; open Evidence Items may still require analysis.
+- Evidence processing records whether analysis made an explicit disposition and preserved traceability.
+- BRS lifecycle records quality review, business fitness, authority approval, and baseline inclusion for derived business content.
+- `disputed`, `rejected`, `deferred`, and `superseded` are governed outcomes where applicable.
 
-Confirmation is not acceptance. File location is not lifecycle state.
+Confirmation is not acceptance. Closing evidence is not approval. File location is not lifecycle state.
 
 ## Primary Classifications and Destinations
 
 | Primary classification | Normal destination | Baseline eligibility |
 |---|---|---|
-| Raw statement or observation | `working/elicitation-log.md` | No |
+| Confirmed source statement, authenticated finding, or observation | `working/evidence-register.md` | No |
 | Source or authoritative record | `working/source-register.md`; link or controlled note under `working/sources/` | No by itself |
 | Research question | `working/research-questions.md` | No |
 | Analysis result | `working/analysis-register.md` | No by itself |
@@ -128,8 +126,8 @@ Confirmation is not acceptance. File location is not lifecycle state.
 
 Apply these tests in order:
 
-1. **Is it a source record or unanalyzed statement?** Keep it in `working/`.
-2. **Is its record disputed, rejected, deferred, or still a question?** Keep it visible in `working/`; do not phrase it as baseline truth.
+1. **Is it a source record or unanalyzed Evidence Item?** Keep it in its authoritative `working/` register.
+2. **Has the Evidence Item received an explicit disposition?** If not, keep its processing state open even when confirmation is complete.
 3. **What requirement level owns it?** Route detailed stakeholder, solution, transition, and design content outside the BRS.
 4. **Is it business information accepted for the baseline?** Continue.
 5. **Does it describe the project or initiative as a whole?** Put it in the mapped root file.
@@ -153,7 +151,7 @@ Ask or research only the missing facts that can change classification, route, or
 | Applicability | Which trigger, conditions, population, location, mode, dates, and exceptions apply? |
 | Measure | What observation or evidence would show that the outcome or quality target is met? |
 | Level | Durable business intent, stakeholder need, permanent solution behavior/quality, temporary transition, or design choice? |
-| State | Raw, confirmed, analyzed, accepted, baselined, disputed, rejected, deferred, or open? |
+| State | What are the applicable evidence-confirmation, evidence-processing, question, and derived-item statuses? |
 
 When answers are unknown, capture them as research questions. Do not invent authority or acceptance.
 
@@ -164,8 +162,9 @@ Use the repository's established scheme when present. Otherwise use monotonic, z
 | Prefix | Item |
 |---|---|
 | `SRC-###` | Source |
+| `EA-###` | Elicitation activity |
+| `EI-###` | Atomic Evidence Item |
 | `RQ-###` | Research question |
-| `EL-###` | Elicitation entry |
 | `AN-###` | Analysis item |
 | `DEC-###` / `CON-###` | Decision / conflict |
 | `OBJ-###` | Goal or objective |
@@ -217,7 +216,7 @@ Input: `We need a new service that sends an email after approval.`
 
 Split and route:
 
-- verbatim statement -> `working/elicitation-log.md` as `Raw`;
+- confirmed live-source meaning -> `working/evidence-register.md` as an Evidence Item with `Processing: New`;
 - unresolved business need -> `working/research-questions.md`;
 - `send an email` -> functional solution requirement candidate in the owning SRS, linked from `downstream/README.md`;
 - any confirmed business outcome such as timely notification -> capability outcome or business quality target, after acceptance.
@@ -226,7 +225,7 @@ Split and route:
 
 Input: `Customer records must be retained for five years.`
 
-Route first to the elicitation log and source register. Clarify governing policy/law, applicable records, start event, exceptions, owner, and effective period. After confirmation and acceptance, place a shared constraint or rule in `06-cross-cutting-rules-constraints-and-quality.md`; link the external authority rather than copying it.
+Route first to the evidence and source registers. Clarify governing policy/law, applicable records, start event, exceptions, owner, and effective period. After confirmation and acceptance, place a shared constraint or rule in `06-cross-cutting-rules-constraints-and-quality.md`; link the external authority rather than copying it.
 
 ### Capability-local behavior
 

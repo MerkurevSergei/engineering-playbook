@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conduct Stakeholder Elicitation"
+  short_description: "Run and confirm one stakeholder elicitation activity"
+  default_prompt: "Use $conduct-stakeholder-elicitation to run one goal-driven stakeholder elicitation activity and record confirmed evidence items."

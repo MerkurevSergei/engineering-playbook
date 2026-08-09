@@ -1,13 +1,13 @@
 ---
 name: organize-project-requirements
-description: Create and evolve a project's requirements directory, classify and clarify incoming statements, preserve source lineage, and route analyzed information to project-wide BRS files, capability modules, working registers, downstream specifications, or evidence. Use when Codex is asked to create a requirements structure, organize or update a BRS, file a stakeholder statement, requirement, rule, scenario, constraint, decision, source note, or open question, or decide where requirements information belongs. Also trigger for Russian requests about «структура requirements», «классифицировать/разместить высказывание», «внести требование», «BRS», «бизнес-правило», or «источник требований».
+description: Create and evolve a project's evidence-driven requirements package, atomize and analyze confirmed source information, update workflow state, preserve lineage, and route derived content to BRS files, capability modules, research questions, decisions, downstream specifications, or evidence. Use when Codex must initialize requirements artifacts, process Evidence Items, show where a stakeholder statement or document finding went, update BRS coverage, organize or update a BRS, or classify and place a rule, scenario, constraint, decision, source note, or open question.
 ---
 
 # Organize Project Requirements
 
 > Status: Draft. The structure and routing model are intentionally incomplete and expected to evolve through real project use.
 
-Build an evolvable requirements package and keep raw discovery information separate from accepted business baseline content. Preserve the original statement and its lineage even when analysis rewrites, splits, rejects, or routes it elsewhere.
+Build an evolvable requirements package and keep source evidence separate from analyzed and approved business content. Preserve enough source meaning, context, and location to support confirmation and traceability. Keep verbatim live-source wording only when audit, legal, research, or user instructions require it.
 
 ## Load the Domain Model
 
@@ -18,33 +18,19 @@ Read both references before creating a package or filing content:
 
 Treat these references as the current v0.1 model. Extend them when the repository adds a governed artifact type or a proven routing rule.
 
+Treat `requirements/work-status.md` as the human handoff page. Each source, activity, Evidence Item, question, analysis item, decision, trace link, and BRS item keeps one authoritative Markdown home. The handoff page summarizes coverage and the next action without duplicating full content.
+
 ## Create the Requirements Package
 
 1. Inspect the target repository for an existing `requirements/` package and local instructions.
-2. Start with the smallest form that meets the request. Use the modular starter in this skill when the user asks for a catalog structure, capability decomposition, or automated routing.
-3. Preview the operation:
-
-   ```text
-   python <skill-dir>/scripts/manage_requirements.py init --project-root <project-root> --dry-run
-   ```
-
-4. Create missing files without overwriting existing content:
-
-   ```text
-   python <skill-dir>/scripts/manage_requirements.py init --project-root <project-root>
-   ```
-
-5. If `requirements/` already contains content, pass `--merge` only after inspecting conflicts. Merge creates missing files and never overwrites files.
-6. Replace placeholders only with known facts. Leave an explicit `TBD` and create a research question for material unknowns; do not invent owners, authority, scope, measures, or approval.
+2. Start with the smallest form that meets the request. Use the Markdown starter in `assets/requirements-template/` when a modular BRS package and working registers are justified.
+3. Preview the list of files and destinations in conversation or tool output.
+4. Create only missing Markdown files and directories. Never overwrite existing content during initialization.
+5. Replace placeholders only with known facts. Leave an explicit `TBD` and create a research question for material unknowns; do not invent owners, authority, scope, measures, or approval.
+6. Reconcile `work-status.md` and every register with pre-existing artifacts before treating the handoff page as current.
 7. Do not create empty optional model, rule, or scenario directories until a tailoring trigger justifies them.
 
-The starter assets are in `assets/requirements-template/`. Use `assets/capability-template.md` for a new capability or run:
-
-```text
-python <skill-dir>/scripts/manage_requirements.py add-capability --project-root <project-root> --name "<business ability>" --outcome "<observable business outcome>"
-```
-
-After creating a capability module, update `capability-map.md`, `capabilities/README.md`, and the applicable traceability rows; the script intentionally does not rewrite existing tables. Name capabilities as stable business abilities, not processes, screens, APIs, databases, services, or technical actions.
+Use `assets/capability-template.md` for a new capability. Inspect existing capability IDs, allocate the next monotonic ID, create its Markdown page, and update `capability-map.md`, `capabilities/README.md`, the coverage table, and applicable traceability rows. Name capabilities as stable business abilities, not processes, screens, APIs, databases, services, or technical actions.
 
 ## File a Statement
 
@@ -52,13 +38,18 @@ After creating a capability module, update `capability-map.md`, `capabilities/RE
 
 Read the package `README.md`, working registers, capability map, relevant capability pages, and candidate destination. Search stable IDs and distinctive wording to avoid duplicates.
 
-### 2. Preserve the Source
+### 2. Preserve the Evidence
 
-If the statement is not already traceable, record its verbatim form and context in `working/elicitation-log.md`. Add or link its source in `working/source-register.md`. Do not silently convert a chat or interview statement into an approved requirement.
+If the item is not already traceable, add or link its source in `working/source-register.md` and record an atomic Evidence Item in `working/evidence-register.md`.
+
+- For a live source, preserve confirmed normalized meaning, participant, authority, activity, and context. Keep rejected drafts transient unless retention is required.
+- For a fixed source, preserve the stable artifact identity, version, exact locator, and faithful finding or permitted excerpt.
+
+Do not silently convert source evidence into an approved requirement.
 
 ### 3. Split and Classify
 
-Split compound statements into atomic items. Give each item one primary classification from the routing reference. Preserve relationships between the split items.
+Split compound evidence into atomic items. Give each derived Analysis Item one primary classification from the routing reference. Preserve relationships between evidence, split items, questions, and destinations.
 
 Distinguish at least:
 
@@ -88,7 +79,7 @@ If the missing answer blocks classification, scope, authority, or normative mean
 
 Apply this order:
 
-1. **State:** raw, disputed, rejected, deferred, and open items remain in `working/`.
+1. **Processing state:** evidence remains in `working/` even after it is processed; its disposition points to the derived destination or terminal rationale.
 2. **Requirement level:** stakeholder, solution, transition, and design items route outside the BRS through `downstream/README.md` or the repository's owning artifact.
 3. **Scope:** accepted business information goes to a project-wide root file, a capability page, or a project-wide cross-cutting section.
 4. **Evidence:** approval, verification, delivery, and outcome evidence is linked from `evidence/README.md`; do not copy an authoritative external record by default.
@@ -108,13 +99,15 @@ For an analyzed item, retain or add:
 - owner or authority when required;
 - relationships to outcomes, rules, scenarios, downstream requirements, and evidence.
 
+Set the Evidence Item to `closed` only when confirmation or authentication, classification, disposition, target IDs or terminal rationale, open questions, and trace links are present. Apply `draft` through `baselined` only to derived BRS items, never to source evidence.
+
 Use declarative wording for business rules. State outcomes without prescribing system design. Keep observations separate from interpretations.
 
 ### 7. Verify the Change
 
 Check that:
 
-- the verbatim statement remains traceable;
+- the confirmed source meaning or fixed-source locator remains traceable;
 - the normalized item has one primary home;
 - no project-wide content was copied into every capability;
 - no capability was named after a technical component;
@@ -123,7 +116,7 @@ Check that:
 - links and stable IDs resolve;
 - changed Markdown tables remain valid.
 
-Summarize the classification, clarifications or assumptions, destination, lifecycle state, and any unresolved question.
+Update affected authoritative rows and `work-status.md`, recalculate coverage, and summarize the classification, disposition, destination, remaining questions, and exact next action for the orchestrator.
 
 ## Evolve the Model Safely
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orchestrate Product Requirements"
+  short_description: "Manage evidence-driven requirements work and next actions"
+  default_prompt: "Use $orchestrate-product-requirements to reconcile requirements state, show what is processed, and select the next evidence-driven activity."

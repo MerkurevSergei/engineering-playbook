@@ -1,4 +1,4 @@
 interface:
   display_name: "Organize Project Requirements (Draft)"
-  short_description: "Draft workflow for organizing requirements"
-  default_prompt: "Use $organize-project-requirements to classify this statement, clarify material gaps, and place it in the project requirements structure."
+  short_description: "Process evidence and update requirements artifacts"
+  default_prompt: "Use $organize-project-requirements to analyze these Evidence Items, update workflow state, and route derived content to the correct requirements artifacts."

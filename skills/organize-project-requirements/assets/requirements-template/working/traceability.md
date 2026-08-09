@@ -3,7 +3,7 @@
 Maintain enough lineage to navigate change and validate value:
 
 ```text
-source -> elicitation -> analysis -> objective -> capability
+source -> activity -> Evidence Item -> analysis -> objective -> capability
        -> rule/scenario/constraint/decision -> downstream requirement -> evidence
 ```
 
