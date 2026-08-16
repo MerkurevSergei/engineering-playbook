@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Mini BRS (Draft)"
+  short_description: "Build a compact, traceable Mini BRS"
+  default_prompt: "Use $create-mini-brs to create a compact Vision, Scope, Capability Map, and capability-level Business Rules."

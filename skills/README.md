@@ -8,6 +8,7 @@ Project-local source catalog for reusable AI workflows derived from this enginee
 - **Draft** — [Conduct Stakeholder Elicitation](conduct-stakeholder-elicitation/SKILL.md): conduct one goal-driven activity with a live stakeholder and return atomic confirmed Evidence Items.
 - **Draft** — [Analyze Fixed Requirements Source](analyze-fixed-requirements-source/SKILL.md): review a declared scope of a document or artifact and return traceable authenticated Evidence Items.
 - **Draft** — [Organize Project Requirements](organize-project-requirements/SKILL.md): create the requirements package, analyze Evidence Items, preserve lineage, and route derived content to BRS or downstream artifacts.
+- **Draft** — [Create Mini BRS](create-mini-brs/SKILL.md): guide a lightweight Vision/Scope, Capability Map, and capability-level Business Rules workflow through confirmed, traceable checkpoints.
 
 ## Catalog Convention
 
