@@ -3,20 +3,41 @@
 ## Status
 
 - Overall status: In progress
-- Last completed runtime checkpoint: CP1 — Initialize the Session
-- Current runtime checkpoint: CP2 — Capture Atomic Source Items; source recognition under clarification
-- Updated: 2026-08-16
+- Last confirmed runtime checkpoint: CP1 — routing behavior confirmed before state-model reopening
+- Current review target: SC1 — Activation and Scope
+- Next runtime checkpoint: CP2 — revised draft saved but not confirmed
+- Updated: 2026-08-19
 
 ## Working Agreement
 
-Develop runtime checkpoints from top to bottom. For each checkpoint:
+Develop Skill-Wide Contract blocks and runtime checkpoints separately. For each block or checkpoint:
 
 1. Show the exact proposal.
-2. Revise it until the user confirms it.
-3. Save and verify only the confirmed checkpoint.
-4. Mark it complete and continue to the next checkpoint.
+2. Keep the exact proposal in this plan while its Status is `Draft` or `Reopened`.
+3. Revise it until the user confirms it.
+4. Implement only the confirmed version in `SKILL.md`.
+5. Verify the implementation and dependent blocks and checkpoints for consistency.
+6. Remove the implemented skill content from this plan and retain only its compact plan record.
 
-Do not implement a later runtime checkpoint silently. A user may explicitly return to an earlier checkpoint.
+Skill-Wide Contract blocks apply across the workflow but are not runtime steps and do not receive CP numbers. Do not implement a later block or runtime checkpoint silently. A user may explicitly return to an earlier block or checkpoint. When a confirmed change invalidates a dependency, mark the dependent block or checkpoint as reopened.
+
+## Content Residency Rule
+
+Keep one authoritative copy of skill content according to its lifecycle:
+
+- `Draft`: keep the exact proposed skill content only in this plan; do not add it to `SKILL.md`.
+- `Reopened`: keep the last confirmed version active in `SKILL.md`; copy the current baseline and proposed revision into this plan for review. This duplication is temporary.
+- `Confirmed and implemented`: keep the exact skill content only in `SKILL.md`; remove `Exact Draft`, checkpoint algorithms, schemas, and other implemented skill text from this plan.
+
+After implementation, retain only the compact plan record:
+
+1. Status.
+2. `Implemented at` location in `SKILL.md`.
+3. Dependencies.
+4. Acceptance Criteria.
+5. Verification result.
+
+When reopening implemented content, copy its current version from `SKILL.md` back into this plan as `Current Baseline`, add the proposed change, and mark the plan record `Reopened`. Do not remove or weaken the active version in `SKILL.md` until its replacement is confirmed and verified. Use Git history instead of duplicating old confirmed versions in this plan.
 
 ## Checkpoint Format
 
@@ -49,9 +70,171 @@ The skill must remain separate from the repository's formal evidence-driven BRS 
 - Let the user change the interaction mode at any time.
 - Place explicit terms and definitions before workflow instructions.
 
+## Skill-Wide Contract
+
+These blocks define the exact instructions that apply before and across all runtime checkpoints. Review and confirm them independently; do not execute them as sequential workflow steps.
+
+### Contract Map
+
+1. SC1 — Activation and Scope. **Reopened — current baseline copied for independent review.**
+2. SC2 — Terms and Definitions. **Reopened — current baseline copied for independent review.**
+3. SC3 — Interaction Modes. **Reopened — current baseline copied for independent review.**
+4. SC4 — Persistent State Model. **Draft — reopened and not implemented.**
+5. SC5 — Global Operating Rules. **Draft — rules moved out of SC1 for later review.**
+
+## SC1 — Activation and Scope
+
+Status: **Reopened — the current baseline remains active in `SKILL.md` and is copied here for independent review.**
+
+### Responsibility
+
+Define why the skill exists and when it should trigger. Do not place operating rules or workflow instructions here.
+
+### Exact Draft
+
+```yaml
+---
+name: create-mini-brs
+description: Develop a Mini BRS. Use when the user requests a Mini BRS or Mini BSR.
+---
+```
+
+### Acceptance Criteria
+
+- The description states one purpose and one trigger condition.
+- `Develop` covers creating, continuing, and revising without enumerating lifecycle actions.
+- `Mini BSR` is included only as an activation alias.
+- Quality attributes, artifact composition, operating rules, exclusions, and algorithms are absent from the description.
+- The redundant `# Create Mini BRS` heading and introductory restatement are absent; the body starts with its first substantive instruction section.
+
+## SC2 — Terms and Definitions
+
+Status: **Reopened — the current baseline remains active in `SKILL.md` and is copied here for independent review.**
+
+### Responsibility
+
+Define the shared vocabulary used by the Skill-Wide Contract and every runtime checkpoint. Do not define checkpoint-specific algorithms here.
+
+### Exact Draft
+
+Use these terms consistently:
+
+| Term | Definition |
+|---|---|
+| Mini BRS | A compact Business Requirements Specification developed through this skill's confirmed checkpoints. |
+| User Request | The user's current instruction, answer, correction, confirmation, rejection, or supplied content. |
+| Target BRS | The BRS selected for the current work. It is a role assigned to an existing BRS, not a duplicate artifact. Use `NEW` when no BRS exists. |
+| Interaction Mode | The active `Creative`, `Standard`, or `Simple` behavior used while developing the Mini BRS. |
+| Dialogue Element | One atomic request, answer, clarification, change, confirmation, or rejection together with the result of processing it. |
+| Resume Point | The single persisted state saved after the latest processed Dialogue Element and used to continue from the next expected action. |
+| Working Draft | An unconfirmed proposal stored as pending work. It may be restored from the Resume Point but is not confirmed BRS content. |
+| Request Intent | Whether the User Request continues saved work (`CONTINUE`) or requests a change (`CHANGE`). It is a temporary CP1 variable and is not persisted. |
+| Change Type | The kind of requested change used to choose the responsible checkpoint. It is a temporary CP1 variable and is not persisted. |
+| Next Action | The single resumable action stored in `Resume Point.next.action`. |
+| Destination | The checkpoint responsible for Next Action, stored in `Resume Point.next.destination`. |
+| Routing Reason | A concise explanation of why Destination owns Next Action, stored in `Resume Point.next.routing_reason`. |
+| Source Action | Whether CP2 creates a Source (`CREATE`) or continues the active Source (`CONTINUE`). |
+
+### Acceptance Criteria
+
+- Every persisted and temporary concept has one unambiguous definition.
+- Definitions do not duplicate workflow algorithms.
+- Field references match SC4 and the checkpoint Results.
+- Temporary CP1 variables are not represented as persisted state.
+
+## SC3 — Interaction Modes
+
+Status: **Reopened — the current baseline remains active in `SKILL.md` and is copied here for independent review.**
+
+### Responsibility
+
+Define how the selected mode changes proposals without weakening source fidelity, confirmation, or traceability.
+
+### Exact Draft
+
+- `Creative`: maximize result quality and propose improvements, alternatives, and new opportunities.
+- `Standard`: improve clarity, atomicity, and terminology without changing meaning.
+- `Simple`: preserve the Source Item wording when placing it in the BRS; add only structure, classification, identifiers, and trace links.
+
+Apply a mode change to the current Working Draft and subsequent work. Change confirmed BRS content only on an explicit request. Never change exact Source Item text because of Interaction Mode.
+
+### Acceptance Criteria
+
+- Each mode produces observably different proposal behavior.
+- No mode changes exact Source Item text.
+- A mode change affects unconfirmed and subsequent work by default.
+- Confirmed BRS content changes only after an explicit user request.
+
+## SC4 — Persistent State Model
+
+Status: **Draft — proposed replacement for the implemented Resume Point Template; not confirmed or implemented.**
+
+### Responsibility
+
+Define the one persisted state used to resume work. CP1 creates and updates this structure; every destination checkpoint reads only the fields it needs. Do not create a separate `Session Context` or another persisted session-state object.
+
+### Exact Draft
+
+```yaml
+resume_point:
+  target_brs: NEW | <BRS identifier or path>
+  active_mode: Creative | Standard | Simple
+  active_source_id: SRC-NNN | null
+
+  last_dialogue_element:
+    type: request | answer | clarification | change | confirmation | rejection
+    summary: <processed element>
+
+  pending:
+    type: none | question | working_draft
+    value: <exact pending item or stable reference>
+
+  next:
+    action: <single resumable action>
+    destination: CP1 | CP2 | CP3 | CP4 | CP5 | CP6 | CP7
+    routing_reason: <why this checkpoint owns the action>
+    source_action: CREATE | CONTINUE | null
+```
+
+### Acceptance Criteria
+
+- `Resume Point` is the only persisted session state.
+- `Session Context` does not exist as a second result or wrapper.
+- `active_checkpoint` is absent because `next.destination` identifies the checkpoint to resume.
+- `Request Intent` and `Change Type` remain temporary CP1 variables.
+- `source_action` is non-null only when `next.destination = CP2`.
+- Every checkpoint updates `last_dialogue_element`, `pending`, and `next` after processing a Dialogue Element.
+- CP1 Result and every dependent checkpoint Input use this schema without copying its fields into another structure.
+
+## SC5 — Global Operating Rules
+
+Status: **Draft — rules removed from SC1 and collected here; not confirmed or implemented as one contract block.**
+
+### Responsibility
+
+Define cross-checkpoint operating rules that must be available after the skill triggers but do not belong to one runtime checkpoint.
+
+### Exact Draft
+
+- Work autonomously within this skill; do not invoke another skill.
+- Use `Mini BRS` in all produced artifacts. Treat `Mini BSR` only as an activation alias.
+- Process interviews and fixed Sources through the same top-to-bottom source cycle.
+- Preserve exact Source Item text separately from interpreted or classified BRS Elements.
+- Preserve quotations from laws and approved regulations verbatim.
+- Link every BRS Element to its supporting Source Item IDs through `Based on`.
+- Preview proposed BRS changes and persist them only after explicit user confirmation.
+
+### Acceptance Criteria
+
+- Every rule applies across multiple checkpoints and has no narrower owner.
+- SC1 contains only purpose and trigger conditions.
+- Source fidelity and traceability rules remain enforceable across CP2–CP7.
+- Confirmation remains mandatory before generated or revised BRS content is persisted.
+- No rule duplicates the detailed algorithm of a runtime checkpoint.
+
 ## Runtime Checkpoint Map
 
-1. CP1 — Initialize the Session. **Complete.**
+1. CP1 — Initialize the Session. **Reopened — routing confirmed; state Result must align with SC4.**
 2. CP2 — Capture Atomic Source Items. **Draft — not confirmed.**
 3. CP3 — Process Source Items Into the BRS. Pending.
 4. CP4 — Form Vision and Scope. Pending.
@@ -61,7 +244,7 @@ The skill must remain separate from the repository's formal evidence-driven BRS 
 
 ## CP1 — Initialize the Session
 
-Status: **Confirmed, saved, and implemented.**
+Status: **Reopened — routing remains active in `SKILL.md`; the current baseline is copied here because its state handling must be revised after SC4 confirmation.**
 
 ### Purpose
 
@@ -195,93 +378,142 @@ session_context:
 
 Status: **Draft — saved but not confirmed or implemented.**
 
-Unresolved before confirmation:
+Dependency before confirmation:
 
-- Define deterministic evidence that an input is a new Source rather than a continuation of a registered Source.
-- Define where the Source record and Source Checkpoint are persisted and how CP2 finds them.
+- CP1 must provide `source_action: CREATE | CONTINUE` and keep `active_source_id` in the single persisted Resume Point.
+- CP1 owns source selection. CP2 operates on exactly one source and never scans all Source Records.
 
 ### Purpose
 
-Transform the next unprocessed source fragment into a confirmed block of atomic Source Items with unambiguous IDs and exact source text.
+Transform the next unprocessed fragment of one selected Source into a confirmed block of atomic Source Items with unambiguous IDs and exact source text.
 
-CP2 does not interpret statements, classify them, or change the BRS. Its result is confirmed input for CP3.
+CP2 does not select a Source, read unrelated Source Records, interpret statements, classify them, change the BRS, or advance the Source Checkpoint. Its result is confirmed input for CP3.
 
 ### Input
 
-1. `Session Context` from CP1.
-2. A new Source or a saved Source Checkpoint.
-3. Source content.
-4. Existing Source IDs and Source Item IDs.
+1. `Session Context` from CP1 with Target BRS, Active Mode, and `source_action: CREATE | CONTINUE`.
+2. `Resume Point` with `active_source_id` when `source_action = CONTINUE`.
+3. `New Source Input` when `source_action = CREATE`:
+   - `inline_source_text`: exact text supplied by the user; or
+   - `source_locator`: a stable path, attachment, URL, or artifact reference;
+   - Source identity: type, name, and optional version and authority.
+4. `Active Source Record` loaded by `active_source_id` when `source_action = CONTINUE`.
+5. Current `User Request` only when it contains new business content for the active interview or an answer to a saved question.
 
 ### Algorithm
 
 ```text
 START CP2
 
-1. READ Session Context, Source, Resume Point, and existing Source records.
+1. READ Session Context, Resume Point, and the current User Request.
+
+   IF source_action = CONTINUE AND active_source_id is absent
+     THEN
+       ASK which Source to continue;
+       SAVE the question in Resume Point;
+       STOP CP2.
+
+   IF source_action = CREATE AND New Source Input is absent
+     THEN
+       ASK the user to provide a Source;
+       SAVE the question in Resume Point;
+       STOP CP2.
 
 2. SET Active Source:
-   IF Resume Point identifies an incomplete Source
+   IF source_action = CONTINUE
      THEN
-       LOAD its Source ID and Source Checkpoint;
-       VERIFY the Source identity and version;
-   ELSE IF a new Source is received
+       LOAD only `sources/<active_source_id>.md`;
+
+       IF that Source Record is unavailable
+         THEN
+           IDENTIFY the missing Source Record;
+           ASK the user to restore or provide the Source again;
+           SAVE the question in Resume Point;
+           STOP CP2.
+
+   ELSE IF source_action = CREATE
      THEN
-       ASSIGN the next unused Source ID;
-       SAVE its type, name, version, and Authority;
+       FIND the next unused Source ID from filenames in `sources/`
+       without reading their contents;
+       PREPARE a new Source Record from New Source Input;
+       DO NOT SAVE it before confirmation.
+
+3. CHECK unfinished processing:
+   IF Active Source contains Source Items with Status = CAPTURED
+     THEN
+       UPDATE Resume Point:
+         active_source_id = Active Source ID;
+         Next Action = PROCESS CAPTURED SOURCE ITEMS;
+         Destination = CP3;
+       GO TO CP3 without capturing another fragment.
+
+4. SET Current Source Fragment as the next contiguous unprocessed part of Active Source sufficient for one reviewable Source Item block.
+
+   IF the current User Request contains business content belonging to the active interview
+     THEN USE that exact business content;
+   ELSE IF Active Source contains `inline_source_text`
+     THEN READ after the position of the last fully processed Source Item;
+   ELSE IF Active Source contains `source_locator`
+     THEN OPEN that Source and READ after the position of the last fully processed Source Item;
    ELSE
-       ASK the user to provide or select a Source;
-       SAVE the question in Resume Point;
-       STOP CP2 until the answer arrives.
+     ASK the user to provide the unavailable Source content;
+     SAVE the question in Resume Point;
+     STOP CP2.
 
-   IF a registered Source changed materially
-     THEN REGISTER the changed version with a new Source ID.
+   EXCLUDE control instructions unless they contain BRS business information.
 
-3. SELECT the next unprocessed fragment:
-   - move from top to bottom;
-   - continue after the last processed position;
-   - do not repeat confirmed Source Items;
-   - exclude control instructions unless they contain BRS business information.
-
-4. SPLIT the fragment into atomic Source Items:
+5. SPLIT Current Source Fragment into atomic Source Items:
    - keep one independently confirmable assertion in each Source Item;
+   - preserve exact Source text without interpretation or semantic rewriting;
    - separate conditions, exceptions, obligations, prohibitions, permissions, and definitions;
-   - do not add interpretation or rewrite meaning;
-   - preserve exact Source text;
    - preserve quotations from laws and approved regulations verbatim;
-   - use 5–9 Source Items when the content permits;
+   - record Source position when it can be determined;
+   - prefer 5–9 Source Items when the content permits;
    - use fewer or more when required to preserve atomicity or meaning.
 
-5. ASSIGN each Source Item the next unused ID in the form `SRC-NNN-SI-NNN`.
+   Interaction Mode never changes Source Item text.
 
-   PREPARE:
+6. ASSIGN Source Item IDs:
+   IF Active Source is new
+     THEN START with `<Source ID>-SI-001`;
+   ELSE
+     FIND the next unused Source Item ID by reading only Active Source Record.
+
+   PREPARE each Source Item with:
    - Source Item ID;
-   - Source text;
-   - optional Source position;
+   - exact Source text;
+   - Source position or null;
    - Status = PENDING CONFIRMATION.
 
-6. SHOW the prepared Source Item block.
+7. SHOW Active Source identity and the prepared Source Item block.
 
-   ASK the user to confirm boundaries, exact Source text, order, and Source position.
+   For a new Source, also SHOW its prepared metadata.
+
+   ASK the user to confirm Source identity, item boundaries, exact text, order, and Source positions.
 
    IF the user requests a change
      THEN
-       REVISE only the unconfirmed block;
-       RETURN TO step 4.
+       REVISE only the unconfirmed Working Draft;
+       RETURN TO step 5.
 
-7. IF the user confirms the block
-   THEN
-     SAVE the Source record;
-     SAVE the Source Items with Status = CAPTURED;
-     KEEP Source Checkpoint unchanged;
-     UPDATE Resume Point:
-       Next Action = PROCESS CAPTURED SOURCE ITEMS;
-       Destination = CP3;
-     SHOW:
-       "Source Items saved.
-        Source Checkpoint will advance after CP3 processing.
-        Going to CP3.";
-     GO TO CP3.
+   IF the user confirms the result
+     THEN
+       SAVE the new Source Record or UPDATE Active Source Record;
+       SAVE confirmed Source Items with Status = CAPTURED;
+       KEEP Source Checkpoint unchanged;
+       UPDATE Resume Point:
+         active_source_id = Active Source ID;
+         active_checkpoint = CP3;
+         pending.type = none;
+         pending.value = null;
+         Next Action = PROCESS CAPTURED SOURCE ITEMS;
+         Destination = CP3;
+         Routing Reason = Captured Source Items require BRS processing;
+       SHOW:
+         "Source Items saved.
+          Source Checkpoint remains unchanged.
+          Going to CP3.";
+       GO TO CP3.
 
 END CP2
 ```
@@ -289,31 +521,39 @@ END CP2
 ### Result
 
 ```yaml
-source:
+source_record:
   source_id: SRC-NNN
-  type: interview | document | law | approved_regulation | policy | existing_brs | other
-  name: <source name>
-  version: <version or date if available>
-  authority: <issuer or responsible role if applicable>
+  identity:
+    type: interview | document | law | approved_regulation | policy | existing_brs | other
+    name: <source name>
+    version: <version or null>
+    authority: <issuer or responsible role or null>
+  source_input:
+    inline_source_text: <exact supplied text or null>
+    source_locator: <stable path, attachment, URL, or artifact reference or null>
   status: IN_PROGRESS
   source_checkpoint:
-    source_id: SRC-NNN
     last_fully_processed_source_item_id: <Source Item ID or null>
-
-captured_source_items:
-  - source_item_id: SRC-NNN-SI-NNN
-    source_text: <exact source text>
-    source_position: <optional position in the source>
-    status: CAPTURED
+  source_items:
+    - source_item_id: SRC-NNN-SI-NNN
+      source_text: <exact source text>
+      source_position: <position in the Source or null>
+      status: CAPTURED
 
 resume_point:
+  target_brs: <BRS identifier or path>
+  active_mode: Creative | Standard | Simple
   active_checkpoint: CP3
+  active_source_id: SRC-NNN
+  last_dialogue_element:
+    type: confirmation
+    summary: <confirmed Source Item block>
   pending:
     type: none
     value: null
   next_expected_action: PROCESS CAPTURED SOURCE ITEMS
   destination: CP3
-  routing_reason: Captured Source Items require classification and BRS placement
+  routing_reason: Captured Source Items require BRS processing
 ```
 
 ## Pending Runtime Checkpoints
