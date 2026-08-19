@@ -1,11 +1,7 @@
 ---
-name: create-mini-brs
-description: Create or update a compact, traceable Mini Business Requirements Specification by interviewing the user and processing supplied sources from top to bottom, including laws, regulations, policies, and existing BRS content. Use when the user asks for a Mini BRS or for the complete lightweight Vision and Scope, Capability Map, and capability-scoped Business Rule Sets and Business Rules workflow. Operate autonomously; do not invoke other skills. Do not use for generic UI, API, or system requirements unrelated to a BRS.
+name: develop-mini-brs
+description: Develop a Mini Business Requirements Specification (Mini BRS). Use when the user requests a Mini BRS or uses the transposed abbreviation Mini BSR.
 ---
-
-# Create Mini BRS
-
-Create a concise, human-readable Mini BRS through explicit user checkpoints.
 
 ## Terms and Definitions
 

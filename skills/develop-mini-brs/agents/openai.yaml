@@ -1,0 +1,4 @@
+interface:
+  display_name: "Develop Mini BRS (Draft)"
+  short_description: "Develop a compact, traceable Mini BRS"
+  default_prompt: "Use $develop-mini-brs to develop a compact Vision, Scope, Capability Map, and capability-level Business Rules."
