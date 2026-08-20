@@ -4,9 +4,9 @@
 
 - Overall status: In progress
 - Last confirmed workflow stage: WS1 — routing behavior confirmed before state-model reopening
-- Current review target: SC2 — Terms and Definitions
+- Current review target: SC3 — Interaction Modes
 - Next workflow stage: WS2 — revised draft saved but not confirmed
-- Updated: 2026-08-20
+- Updated: 2026-08-21
 
 ## Working Agreement
 
@@ -45,6 +45,18 @@ Separate semantic identity from structural specification:
 3. Mention structure in a definition only at the highest stable level needed for clarity, such as `multi-document`.
 4. Refer to the owning schema or template whenever another block needs structural details.
 5. When the structure changes, update its owner and verify every reference to it.
+
+## Specification Ownership Map
+
+This plan-level map identifies the single owner of each structural specification. It is development navigation and is not runtime skill content.
+
+| Structure | Owner |
+|---|---|
+| Shared vocabulary | SC2 |
+| Interaction Mode variants and behavior | SC3 |
+| Resume Point fields | SC4 |
+| Workflow Stage sections | Workflow Stage Format |
+| Mini BRS documents and sections | `skills/develop-mini-brs/references/mini-brs-format.md` after format approval |
 
 ## Content Residency Rule
 
@@ -93,7 +105,7 @@ The skill must remain separate from the repository's formal evidence-driven BRS 
 - Preserve quotations from laws and approved regulations verbatim.
 - Keep exact Source Items separate from classified BRS Elements.
 - Link each BRS Element to supporting Source Item IDs through `Based on`.
-- Preview proposed BRS changes and persist them only as Confirmed Content.
+- Preview Draft BRS Elements and persist them in the Target BRS only as Confirmed BRS Elements.
 - Let the user change the interaction mode at any time.
 - Place explicit terms and definitions before workflow instructions.
 
@@ -104,9 +116,9 @@ These blocks define the exact instructions that apply before and across all work
 ### Contract Map
 
 1. SC1 — Activation and Scope. **Confirmed and implemented.**
-2. SC2 — Terms and Definitions. **Reopened — current baseline copied for independent review.**
-3. SC3 — Interaction Modes. **Reopened — current baseline copied for independent review.**
-4. SC4 — Persistent State Model. **Draft — reopened and not implemented.**
+2. SC2 — Terms and Definitions. **Confirmed and implemented.**
+3. SC3 — Interaction Modes. **Reopened — revised after SC2 confirmation and not confirmed.**
+4. SC4 — Persistent State Model. **Draft — requires revision after SC2 and is not implemented.**
 5. SC5 — Global Operating Rules. **Draft — rules moved out of SC1 for later review.**
 
 ## SC1 — Activation and Scope
@@ -133,72 +145,42 @@ Passed — the folder, frontmatter, catalog entry, and UI metadata use `develop-
 
 ## SC2 — Terms and Definitions
 
-Status: **Reopened — the current baseline remains active in `SKILL.md` and is copied here for independent review.**
+Status: **Confirmed and implemented.**
 
-### Responsibility
+Implemented at: `skills/develop-mini-brs/SKILL.md` under `Terms and Definitions`.
 
-Define the shared vocabulary used across the Skill-Wide Contract and workflow stages. Definitions state meaning and stable distinguishing characteristics; owning schemas and templates define complete composition. Keep stage-specific algorithms and local terms in their owning stages.
+Dependencies:
 
-### Exact Draft
-
-Use these terms consistently:
-
-#### Business Concepts
-
-| Term | Definition |
-|---|---|
-| Mini BRS | A compact, multi-document Business Requirements Specification. |
-| Vision | A concise statement of the desired future business state or outcome. |
-| Scope | The explicit boundary of a Mini BRS, identifying included and excluded business outcomes and Capabilities. |
-| Capability | A coherent ability the organization must have to produce or ensure a specific business outcome within Scope. |
-| Capability Map | A structured representation of the Capabilities within Scope, used to organize their elaboration and traceability. |
-| Business Rule Set | A named group of related Business Rules within one Capability. |
-| Business Rule | A declarative statement that governs or constrains business behavior or a decision within a Capability. |
-
-#### Interaction and State
-
-| Term | Definition |
-|---|---|
-| User Request | The current user input that starts, continues, or changes work on the Mini BRS. |
-| Target BRS | The Mini BRS selected to receive Confirmed Content during the current work. |
-| Interaction Mode | The selected rule set that controls how the skill forms and revises Working Drafts. |
-| Resume Point | The single persisted structure containing sufficient state to resume work from the exact next operation. |
-| Working Draft | A proposal presented to the user for explicit confirmation, correction, or rejection and persisted until the response is processed. |
-| Confirmed Content | Content from a Working Draft that the user explicitly confirms and the responsible Workflow Stage persists. |
-
-#### Execution and Routing
-
-| Term | Definition |
-|---|---|
-| Workflow Stage | An instruction section identified as `WS1`–`WS7` whose Algorithm performs one coherent kind of processing and produces its Result. |
-| Next Action | The single operation from which work must continue. |
-| Destination | The Workflow Stage identifier whose Algorithm executes Next Action. |
-| Routing Reason | A concise explanation of why Destination is responsible for Next Action. |
-
-### Structural Ownership
-
-| Structure | Owner |
-|---|---|
-| Mini BRS documents and sections | `skills/develop-mini-brs/references/mini-brs-format.md` after format approval |
-| Interaction Mode variants and behavior | SC3 |
-| Workflow Stage sections | Workflow Stage Format |
-| Resume Point fields | SC4 |
+- SC3 is reopened for replacement of `Working Draft` and `Confirmed Content` with the confirmed BRS Element lifecycle.
+- SC4 remains draft because its `pending` schema must represent questions, unconfirmed Source Items, and Draft BRS Elements without restoring a second generic draft concept.
+- WS1 remains reopened for alignment with the confirmed Workflow Stage and Resume Point terminology after SC4 confirmation.
+- WS2 remains draft; its local definitions must retain only stage-local Source Record and Source Cursor semantics after shared Source terms moved to SC2.
 
 ### Acceptance Criteria
 
 - SC2 contains only vocabulary used by the Skill-Wide Contract or multiple workflow stages.
 - Every shared concept has one unambiguous definition.
+- Each Business Concept definition identifies whether the term denotes the document set, a section, an organizational ability represented by a map entry, a grouping section, or an atomic statement.
 - Definitions contain only element meaning and stable distinguishing characteristics.
 - Every complete composition has exactly one owning schema or template.
+- Interaction Mode is defined as a mode rather than as the rules that specify its behavior.
+- Source, Active Source, Source Item, Draft BRS Element, and Confirmed BRS Element distinguish the current source context, exact source content, interpreted draft content, and content persisted in the Target BRS.
+- Source Items remain exact source content when a derived Draft BRS Element becomes a Confirmed BRS Element.
 - Workflow Stage, Next Action, and Destination unambiguously identify what to execute and where to resume it.
+- Resume Point, Next Action, Destination, and Routing Reason are defined together as one execution-state and routing model.
 - Stage-local concepts remain in their owning stage until the post-confirmation terminology review.
 - Definitions state element semantics while stage Algorithms retain procedural behavior.
 - Every definition follows the Definition Writing Rule and Definition and Structure Ownership Rule.
 - Definitions remain consistent with their owning schemas, templates, and workflow-stage Results.
+- Structural ownership remains plan-level development navigation rather than runtime vocabulary in SC2.
+
+### Verification Result
+
+Passed — the confirmed definitions are implemented in `SKILL.md`; Business Concepts identify their content kinds; Source Items remain separate from Draft and Confirmed BRS Elements; Workflow Stage identifiers use `WS1`–`WS7`; Request Intent and Change Type are local to WS1; and the dependency audit recorded every block or stage that still requires separate review.
 
 ## SC3 — Interaction Modes
 
-Status: **Reopened — the current baseline remains active in `SKILL.md` and is copied here for independent review.**
+Status: **Reopened — revised after SC2 confirmation but not confirmed; the current baseline remains active in `SKILL.md`.**
 
 ### Responsibility
 
@@ -210,18 +192,18 @@ Define how the selected mode changes proposals without weakening source fidelity
 - `Standard`: improve clarity, atomicity, and terminology without changing meaning.
 - `Simple`: preserve the Source Item wording when placing it in the BRS; add only structure, classification, identifiers, and trace links.
 
-Apply a mode change to the current Working Draft and subsequent work. Change Confirmed Content in the Target BRS only on an explicit request. Never change exact Source Item text because of Interaction Mode.
+Apply a mode change to current Draft BRS Elements and subsequent work. Change Confirmed BRS Elements in the Target BRS only on an explicit request. Never change exact Source Item text because of Interaction Mode.
 
 ### Acceptance Criteria
 
 - Each mode produces observably different proposal behavior.
 - No mode changes exact Source Item text.
-- A mode change affects unconfirmed and subsequent work by default.
-- Confirmed Content in the Target BRS changes only after an explicit user request.
+- A mode change affects current Draft BRS Elements and subsequent work by default.
+- Confirmed BRS Elements in the Target BRS change only after an explicit user request.
 
 ## SC4 — Persistent State Model
 
-Status: **Draft — proposed replacement for the implemented Resume Point Template; not confirmed or implemented.**
+Status: **Draft — must revise `pending` after SC2 confirmation; the proposed replacement for the implemented Resume Point Template is not confirmed or implemented.**
 
 ### Responsibility
 
@@ -279,7 +261,7 @@ Define cross-stage operating rules that must be available after the skill trigge
 - Every rule applies across multiple stages and has no narrower owner.
 - SC1 contains only purpose and trigger conditions.
 - Source fidelity and traceability rules remain enforceable across WS2–WS7.
-- Only Confirmed Content may be persisted in the Target BRS.
+- Only Confirmed BRS Elements may be persisted in the Target BRS.
 - No rule duplicates the detailed algorithm of a workflow stage.
 
 ## Workflow Stage Map
