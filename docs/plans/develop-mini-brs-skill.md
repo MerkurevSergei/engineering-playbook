@@ -4,9 +4,9 @@
 
 - Overall status: In progress
 - Last confirmed workflow stage: WS1 — routing behavior confirmed before state-model reopening
-- Current review target: SC3 — Interaction Modes
+- Current review target: SC4 — Persistent State Model
 - Next workflow stage: WS2 — revised draft saved but not confirmed
-- Updated: 2026-08-21
+- Updated: 2026-08-22
 
 ## Working Agreement
 
@@ -117,8 +117,8 @@ These blocks define the exact instructions that apply before and across all work
 
 1. SC1 — Activation and Scope. **Confirmed and implemented.**
 2. SC2 — Terms and Definitions. **Confirmed and implemented.**
-3. SC3 — Interaction Modes. **Reopened — revised after SC2 confirmation and not confirmed.**
-4. SC4 — Persistent State Model. **Draft — requires revision after SC2 and is not implemented.**
+3. SC3 — Interaction Modes. **Confirmed and implemented.**
+4. SC4 — Persistent State Model. **Draft — the redundant Session Context is removed; the Resume Point replacement remains unconfirmed.**
 5. SC5 — Global Operating Rules. **Draft — rules moved out of SC1 for later review.**
 
 ## SC1 — Activation and Scope
@@ -151,7 +151,7 @@ Implemented at: `skills/develop-mini-brs/SKILL.md` under `Terms and Definitions`
 
 Dependencies:
 
-- SC3 is reopened for replacement of `Working Draft` and `Confirmed Content` with the confirmed BRS Element lifecycle.
+- SC3 owns the confirmed Interaction Mode variants and behavior used when forming and revising BRS Elements.
 - SC4 remains draft because its `pending` schema must represent questions, unconfirmed Source Items, and Draft BRS Elements without restoring a second generic draft concept.
 - WS1 remains reopened for alignment with the confirmed Workflow Stage and Resume Point terminology after SC4 confirmation.
 - WS2 remains draft; its local definitions must retain only stage-local Source Record and Source Cursor semantics after shared Source terms moved to SC2.
@@ -163,7 +163,7 @@ Dependencies:
 - Each Business Concept definition identifies whether the term denotes the document set, a section, an organizational ability represented by a map entry, a grouping section, or an atomic statement.
 - Definitions contain only element meaning and stable distinguishing characteristics.
 - Every complete composition has exactly one owning schema or template.
-- Interaction Mode is defined as a mode rather than as the rules that specify its behavior.
+- Interaction Mode is defined by its function without enumerating variants or behavior owned by SC3.
 - Source, Active Source, Source Item, Draft BRS Element, and Confirmed BRS Element distinguish the current source context, exact source content, interpreted draft content, and content persisted in the Target BRS.
 - Source Items remain exact source content when a derived Draft BRS Element becomes a Confirmed BRS Element.
 - Workflow Stage, Next Action, and Destination unambiguously identify what to execute and where to resume it.
@@ -176,34 +176,36 @@ Dependencies:
 
 ### Verification Result
 
-Passed — the confirmed definitions are implemented in `SKILL.md`; Business Concepts identify their content kinds; Source Items remain separate from Draft and Confirmed BRS Elements; Workflow Stage identifiers use `WS1`–`WS7`; Request Intent and Change Type are local to WS1; and the dependency audit recorded every block or stage that still requires separate review.
+Passed — the confirmed definitions are implemented in `SKILL.md`; Interaction Mode states only its function while SC3 owns its variants and behavior; Business Concepts identify their content kinds; Source Items remain separate from Draft and Confirmed BRS Elements; Workflow Stage identifiers use `WS1`–`WS7`; Request Intent and Change Type are local to WS1; and the dependency audit recorded every block or stage that still requires separate review.
 
 ## SC3 — Interaction Modes
 
-Status: **Reopened — revised after SC2 confirmation but not confirmed; the current baseline remains active in `SKILL.md`.**
+Status: **Confirmed and implemented.**
 
-### Responsibility
+Implemented at: `skills/develop-mini-brs/SKILL.md` under `Interaction Modes`.
 
-Define how the selected mode changes proposals without weakening source fidelity, confirmation, or traceability.
+Dependencies:
 
-### Exact Draft
-
-- `Creative`: maximize result quality and propose improvements, alternatives, and new opportunities.
-- `Standard`: improve clarity, atomicity, and terminology without changing meaning.
-- `Simple`: preserve the Source Item wording when placing it in the BRS; add only structure, classification, identifiers, and trace links.
-
-Apply a mode change to current Draft BRS Elements and subsequent work. Change Confirmed BRS Elements in the Target BRS only on an explicit request. Never change exact Source Item text because of Interaction Mode.
+- SC2 defines Interaction Mode and the Source Item, Draft BRS Element, and Confirmed BRS Element lifecycle.
+- SC4 persists the selected variant in `active_mode`.
+- WS1 selects, restores, and changes the active Interaction Mode.
 
 ### Acceptance Criteria
 
 - Each mode produces observably different proposal behavior.
 - No mode changes exact Source Item text.
+- Creative suggestions unsupported by current Source Items remain questions or suggestions until a supporting Source Item is captured.
+- Simple forms a Draft BRS Element from Source Item wording without placing the Source Item itself in the Target BRS.
 - A mode change affects current Draft BRS Elements and subsequent work by default.
 - Confirmed BRS Elements in the Target BRS change only after an explicit user request.
 
+### Verification Result
+
+Passed — `SKILL.md` contains the three confirmed variants and their common rules; Creative permits creative judgment and new proposals while unsupported meaning remains outside Draft BRS Elements; Standard preserves supported meaning; Simple uses Source Item wording without moving Source Items into the Target BRS; and mode changes preserve confirmed content unless the user explicitly requests a revision.
+
 ## SC4 — Persistent State Model
 
-Status: **Draft — must revise `pending` after SC2 confirmation; the proposed replacement for the implemented Resume Point Template is not confirmed or implemented.**
+Status: **Draft — the redundant Session Context is removed from `SKILL.md`; `pending` and the remaining Resume Point replacement still require revision and confirmation.**
 
 ### Responsibility
 
@@ -238,6 +240,10 @@ resume_point:
 - Every stage updates `pending` and `next` after processing the current User Request.
 - WS1 Result and every dependent stage Input use this schema without copying its fields into another structure.
 
+### Partial Implementation
+
+Passed — WS1 Result now returns the updated Resume Point directly. `Session Context` no longer exists in `SKILL.md`. The Resume Point schema remains the active baseline until the rest of SC4 is confirmed.
+
 ## SC5 — Global Operating Rules
 
 Status: **Draft — rules removed from SC1 and collected here; not confirmed or implemented as one contract block.**
@@ -266,7 +272,7 @@ Define cross-stage operating rules that must be available after the skill trigge
 
 ## Workflow Stage Map
 
-1. WS1 — Initialize the Session. **Reopened — routing confirmed; state Result must align with SC4.**
+1. WS1 — Initialize the Session. **Reopened — routing confirmed; Session Context removed; remaining state handling must align with SC4.**
 2. WS2 — Capture Atomic Source Items. **Draft — not confirmed.**
 3. WS3 — Process Source Items Into the BRS. Pending.
 4. WS4 — Form Vision and Scope. Pending.
@@ -618,6 +624,6 @@ Keep technical construction outside the workflow-stage sequence:
 |---|---|---|
 | WS1 plan structure | Passed | Contains the four required sections and allowed Local Definitions |
 | WS1 routing | Passed | Every route is expressed in algorithm step 6 |
-| Resume Point template | Passed | Included in WS1 Result |
+| Resume Point result | Passed | WS1 returns the updated Resume Point without a Session Context wrapper |
 | Full skill validation | Pending | Run after WS7 |
 | Forward tests | Pending | Run after WS7 |

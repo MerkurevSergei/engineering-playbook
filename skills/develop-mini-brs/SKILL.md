@@ -25,7 +25,7 @@ Use these terms consistently:
 |---|---|
 | User Request | The current user input that starts, continues, or changes work on the Mini BRS. |
 | Target BRS | The Mini BRS selected for the current work and for receiving Confirmed BRS Elements. |
-| Interaction Mode | The active `Creative`, `Standard`, or `Simple` mode used while forming and revising Draft BRS Elements. |
+| Interaction Mode | A user-selectable mode that determines how the skill forms and revises Draft BRS Elements. |
 
 ### Source and BRS Content Lifecycle
 
@@ -50,11 +50,16 @@ Use these terms consistently:
 
 ## Interaction Modes
 
-- `Creative`: maximize result quality and propose improvements, alternatives, and new opportunities.
-- `Standard`: improve clarity, atomicity, and terminology without changing meaning.
-- `Simple`: preserve the Source Item wording when placing it in the BRS; add only structure, classification, identifiers, and trace links.
+| Mode | Behavior |
+|---|---|
+| `Creative` | Apply creative judgment when forming Draft BRS Elements: improve source-supported content and introduce new proposals, alternatives, and opportunities. |
+| `Standard` | Form Draft BRS Elements by improving clarity, atomicity, and terminology while preserving the business meaning supported by Source Items. |
+| `Simple` | Form Draft BRS Elements using the wording of supporting Source Items; add only structure, classification, identifiers, and trace links. |
 
-Apply a mode change to the current Working Draft and subsequent work. Change confirmed BRS content only on an explicit request.
+- Never change exact Source Item text because of Interaction Mode.
+- Do not form a Draft BRS Element from a question or suggestion until a supporting Source Item is captured.
+- Apply a mode change to current Draft BRS Elements and subsequent work.
+- Change Confirmed BRS Elements in the Target BRS only on an explicit user request.
 
 ## Resume Point Template
 
@@ -188,13 +193,4 @@ END WS1
 
 ### Result
 
-```yaml
-session_context:
-  target_brs: NEW | <BRS identifier or path>
-  active_mode: Creative | Standard | Simple
-  request_intent: CONTINUE | CHANGE
-  next_action: <single next action>
-  destination: WS1 | WS2 | WS3 | WS4 | WS5 | WS6 | WS7
-  routing_reason: <why this destination owns the next action>
-  resume_point: <updated Resume Point>
-```
+The updated `Resume Point` defined by the Resume Point Template.
