@@ -61,22 +61,24 @@ Use these terms consistently:
 - Apply a mode change to current Draft BRS Elements and subsequent work.
 - Change Confirmed BRS Elements in the Target BRS only on an explicit user request.
 
-## Resume Point Template
+## Resume Point
+
+Persist exactly one Resume Point at `<Target BRS directory>/resume-point.yaml`. When `target_brs` is `NEW`, establish the Target BRS directory before the first save and store the file there.
 
 ```yaml
 resume_point:
   target_brs: NEW | <BRS identifier or path>
   active_mode: Creative | Standard | Simple
-  active_checkpoint: WS1 | WS2 | WS3 | WS4 | WS5 | WS6 | WS7
-  last_dialogue_element:
-    type: request | answer | clarification | change | confirmation | rejection
-    summary: <processed element>
+  active_source_id: SRC-NNN | null
+
   pending:
-    type: none | question | working_draft
-    value: <exact pending item or stable reference>
-  next_expected_action: <single resumable action>
-  destination: WS1 | WS2 | WS3 | WS4 | WS5 | WS6 | WS7
-  routing_reason: <why this destination is next>
+    type: none | question | source_item_block | draft_brs_element_block
+    value: null | <exact pending content or stable reference>
+
+  next:
+    action: <single resumable action>
+    destination: WS1 | WS2 | WS3 | WS4 | WS5 | WS6 | WS7
+    routing_reason: <why this stage owns the action>
 ```
 
 ## WS1 — Initialize the Session
@@ -132,7 +134,7 @@ START WS1
 
 4. INTERPRET User Request:
    IF it answers a pending question,
-      confirms or rejects a Working Draft,
+      confirms, corrects, or rejects a Source Item block or Draft BRS Element block saved in Resume Point.pending,
       or asks to continue
      THEN SET Request Intent = CONTINUE;
    ELSE
@@ -156,8 +158,8 @@ START WS1
 6. DETERMINE Next Action and Destination:
    IF Request Intent = CONTINUE
      THEN
-       SET Next Action from Resume Point;
-       SET Destination = the Workflow Stage that saved Next Action;
+       SET Next Action = Resume Point.next.action;
+       SET Destination = Resume Point.next.destination;
    ELSE IF Change Type = REGISTER NEW SOURCE
      THEN SET Next Action = CAPTURE SOURCE ITEMS
           AND Destination = WS2;
@@ -171,13 +173,21 @@ START WS1
      THEN SET Next Action = REVISE CAPABILITY OR RULE
           AND Destination = WS6;
    ELSE IF Change Type = CHANGE MODE ONLY
-     THEN SET Next Action from Resume Point
-          AND Destination = the Workflow Stage identified by Resume Point.active_checkpoint before the mode change;
+     THEN SET Next Action = Resume Point.next.action
+          AND Destination = Resume Point.next.destination;
    ELSE IF Change Type = CHANGE TARGET BRS
      THEN SET Next Action = SELECT TARGET BRS
           AND Destination = WS1 step 2.
 
-7. UPDATE Resume Point after processing the current User Request.
+7. UPDATE Resume Point after processing the current User Request:
+   - SET target_brs = Target BRS;
+   - SET active_mode = Active Mode;
+   - SET pending.type and pending.value to the unresolved question, Source Item block, or Draft BRS Element block; otherwise SET them to none and null;
+   - SET next.action = Next Action;
+   - SET next.destination = Destination;
+   - SET next.routing_reason = Routing Reason.
+
+   SAVE Resume Point to `<Target BRS directory>/resume-point.yaml`.
 
    SHOW:
      "Continuing with <Next Action>.
@@ -193,4 +203,4 @@ END WS1
 
 ### Result
 
-The updated `Resume Point` defined by the Resume Point Template.
+The updated Resume Point persisted at `<Target BRS directory>/resume-point.yaml`.

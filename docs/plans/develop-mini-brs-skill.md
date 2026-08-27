@@ -4,9 +4,9 @@
 
 - Overall status: In progress
 - Last confirmed workflow stage: WS1 — routing behavior confirmed before state-model reopening
-- Current review target: SC4 — Persistent State Model
+- Current review target: SC5 — Global Operating Rules
 - Next workflow stage: WS2 — revised draft saved but not confirmed
-- Updated: 2026-08-22
+- Updated: 2026-08-28
 
 ## Working Agreement
 
@@ -118,7 +118,7 @@ These blocks define the exact instructions that apply before and across all work
 1. SC1 — Activation and Scope. **Confirmed and implemented.**
 2. SC2 — Terms and Definitions. **Confirmed and implemented.**
 3. SC3 — Interaction Modes. **Confirmed and implemented.**
-4. SC4 — Persistent State Model. **Draft — the redundant Session Context is removed; the Resume Point replacement remains unconfirmed.**
+4. SC4 — Persistent State Model. **Confirmed and implemented.**
 5. SC5 — Global Operating Rules. **Draft — rules moved out of SC1 for later review.**
 
 ## SC1 — Activation and Scope
@@ -152,8 +152,8 @@ Implemented at: `skills/develop-mini-brs/SKILL.md` under `Terms and Definitions`
 Dependencies:
 
 - SC3 owns the confirmed Interaction Mode variants and behavior used when forming and revising BRS Elements.
-- SC4 remains draft because its `pending` schema must represent questions, unconfirmed Source Items, and Draft BRS Elements without restoring a second generic draft concept.
-- WS1 remains reopened for alignment with the confirmed Workflow Stage and Resume Point terminology after SC4 confirmation.
+- SC4 owns the confirmed Resume Point schema and its persistence in `resume-point.yaml`.
+- WS1 remains reopened for confirmation of its full algorithm after alignment with the confirmed Workflow Stage and Resume Point terminology.
 - WS2 remains draft; its local definitions must retain only stage-local Source Record and Source Cursor semantics after shared Source terms moved to SC2.
 
 ### Acceptance Criteria
@@ -205,44 +205,35 @@ Passed — `SKILL.md` contains the three confirmed variants and their common rul
 
 ## SC4 — Persistent State Model
 
-Status: **Draft — the redundant Session Context is removed from `SKILL.md`; `pending` and the remaining Resume Point replacement still require revision and confirmation.**
+Status: **Confirmed and implemented.**
 
-### Responsibility
+Implemented at: `skills/develop-mini-brs/SKILL.md` under `Resume Point` and in WS1 state handling.
 
-Define the one persisted state used to resume work. WS1 creates and updates this structure; every destination stage reads only the fields it needs. Do not create a separate `Session Context` or another persisted session-state object.
+Dependencies:
 
-### Exact Draft
-
-```yaml
-resume_point:
-  target_brs: NEW | <BRS identifier or path>
-  active_mode: Creative | Standard | Simple
-  active_source_id: SRC-NNN | null
-
-  pending:
-    type: none | question | working_draft
-    value: <exact pending item or stable reference>
-
-  next:
-    action: <single resumable action>
-    destination: WS1 | WS2 | WS3 | WS4 | WS5 | WS6 | WS7
-    routing_reason: <why this stage owns the action>
-```
+- SC2 defines Resume Point, Next Action, Destination, Routing Reason, Source Item, and Draft BRS Element.
+- SC3 defines the variants persisted in `active_mode`.
+- WS1 creates, restores, updates, and persists the Resume Point.
+- WS2–WS7 read the fields they need and update `pending` and `next` after processing.
 
 ### Acceptance Criteria
 
 - `Resume Point` is the only persisted session state.
 - `Session Context` does not exist as a second result or wrapper.
+- The Resume Point is persisted at `<Target BRS directory>/resume-point.yaml`.
+- When `target_brs` is `NEW`, the Target BRS directory is established before the first save.
 - A separate active-stage field is absent because `next.destination` identifies the stage to resume.
 - Dialogue history is not persisted because it is not required to resume work.
 - `Request Intent` and `Change Type` remain local temporary variables in WS1 and are not persisted.
+- `pending.type` distinguishes no pending item, a question, a Source Item block, and a Draft BRS Element block without a generic Working Draft concept.
+- `pending.value` is `null` when no item is pending and otherwise contains the exact pending content or a stable reference.
 - `next.action` distinguishes registering a new Source from continuing the active Source without a separate create-or-continue flag.
 - Every stage updates `pending` and `next` after processing the current User Request.
 - WS1 Result and every dependent stage Input use this schema without copying its fields into another structure.
 
-### Partial Implementation
+### Verification Result
 
-Passed — WS1 Result now returns the updated Resume Point directly. `Session Context` no longer exists in `SKILL.md`. The Resume Point schema remains the active baseline until the rest of SC4 is confirmed.
+Passed — `SKILL.md` contains one Resume Point schema, persists it in `resume-point.yaml`, distinguishes questions from Source Item and Draft BRS Element blocks, nests routing state under `next`, omits dialogue history and a separate active-stage field, and returns the persisted Resume Point directly from WS1 without a Session Context wrapper.
 
 ## SC5 — Global Operating Rules
 
@@ -272,7 +263,7 @@ Define cross-stage operating rules that must be available after the skill trigge
 
 ## Workflow Stage Map
 
-1. WS1 — Initialize the Session. **Reopened — routing confirmed; Session Context removed; remaining state handling must align with SC4.**
+1. WS1 — Initialize the Session. **Reopened — routing confirmed and SC4 state integration implemented; the full revised stage remains unconfirmed.**
 2. WS2 — Capture Atomic Source Items. **Draft — not confirmed.**
 3. WS3 — Process Source Items Into the BRS. Pending.
 4. WS4 — Form Vision and Scope. Pending.
@@ -282,7 +273,7 @@ Define cross-stage operating rules that must be available after the skill trigge
 
 ## WS1 — Initialize the Session
 
-Status: **Reopened — routing remains active in `SKILL.md`; the current baseline is copied here because its terminology and state handling must be revised after SC2 and SC4 confirmation.**
+Status: **Reopened — routing and SC4 state integration are active in `SKILL.md`; the full revised stage remains here for independent confirmation.**
 
 ### Purpose
 
@@ -335,7 +326,7 @@ START WS1
 
 4. INTERPRET User Request:
    IF it answers a pending question,
-      confirms or rejects a Working Draft,
+      confirms, corrects, or rejects a Source Item block or Draft BRS Element block saved in Resume Point.pending,
       or asks to continue
      THEN SET Request Intent = CONTINUE;
    ELSE
@@ -383,10 +374,12 @@ START WS1
 7. UPDATE Resume Point after processing the current User Request:
    - SET target_brs = Target BRS;
    - SET active_mode = Active Mode;
-   - SET pending to the unresolved question or Working Draft, otherwise none;
+   - SET pending.type and pending.value to the unresolved question, Source Item block, or Draft BRS Element block; otherwise SET them to none and null;
    - SET next.action = Next Action;
    - SET next.destination = Destination;
    - SET next.routing_reason = Routing Reason.
+
+   SAVE Resume Point to `<Target BRS directory>/resume-point.yaml`.
 
    SHOW:
      "Continuing with <Next Action>.
@@ -402,19 +395,7 @@ END WS1
 
 ### Result
 
-```yaml
-resume_point:
-  target_brs: NEW | <BRS identifier or path>
-  active_mode: Creative | Standard | Simple
-  active_source_id: SRC-NNN | null
-  pending:
-    type: none | question | working_draft
-    value: <exact pending item or stable reference>
-  next:
-    action: <single resumable action>
-    destination: WS1 | WS2 | WS3 | WS4 | WS5 | WS6 | WS7
-    routing_reason: <why this stage owns the action>
-```
+The updated Resume Point conforming to SC4 and persisted at `<Target BRS directory>/resume-point.yaml`.
 
 ## WS2 — Capture Atomic Source Items
 
@@ -435,9 +416,7 @@ WS2 does not select a Source, read unrelated Source Records, interpret statement
 
 | Term | Definition |
 |---|---|
-| Source | One identified origin of business information processed from top to bottom. |
 | Source Record | The persisted record for one Source, including its identity, content or locator, Source Cursor, and Source Items. |
-| Source Item | One atomic, independently confirmable unit of exact Source content. Before confirmation it exists only inside the Working Draft with status `PENDING CONFIRMATION`. After the user confirms the block, it is persisted with status `CAPTURED` and becomes input to WS3. |
 | Source Cursor | The progress marker identifying the last Source Item fully processed into the BRS by WS3. WS2 reads this position but does not advance it. |
 
 ### Input
@@ -544,7 +523,7 @@ START WS2
 
    IF the user requests a change
      THEN
-       REVISE only the unconfirmed Working Draft;
+       REVISE only the unconfirmed Source Item block;
        RETURN TO step 5.
 
    IF the user confirms the result
@@ -624,6 +603,6 @@ Keep technical construction outside the workflow-stage sequence:
 |---|---|---|
 | WS1 plan structure | Passed | Contains the four required sections and allowed Local Definitions |
 | WS1 routing | Passed | Every route is expressed in algorithm step 6 |
-| Resume Point result | Passed | WS1 returns the updated Resume Point without a Session Context wrapper |
+| Resume Point result | Passed | WS1 persists the updated SC4 Resume Point in `resume-point.yaml` without a Session Context wrapper |
 | Full skill validation | Pending | Run after WS7 |
 | Forward tests | Pending | Run after WS7 |
