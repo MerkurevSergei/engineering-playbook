@@ -81,6 +81,16 @@ resume_point:
     routing_reason: <why this stage owns the action>
 ```
 
+## Global Operating Rules
+
+- Execute the complete Mini BRS workflow using only this skill.
+- Give the Target BRS a human-readable title that identifies its subject and document type in the artifact's language. Express the document type as `Business Requirements Specification (BRS)`, its localized equivalent with the `BRS` abbreviation, or `BRS` alone. Use `Mini BRS` as the name of the lightweight specification format and workflow. Recognize `Mini BSR` only as an activation alias in a User Request.
+- Process every Source, including interviews and fixed documents, from top to bottom through the same source cycle.
+- After the user confirms a Source Item block, preserve every Source Item in that block as exact Source content separately from interpreted BRS Elements.
+- Preserve text quoted from a law or approved regulation verbatim in its Source Item and in any BRS Element that reproduces the quotation.
+- Record the supporting Source Item IDs of every BRS Element in its `Based on` field.
+- Show each Draft BRS Element to the user and persist it in the Target BRS as a Confirmed BRS Element after explicit user confirmation.
+
 ## WS1 — Initialize the Session
 
 ### Purpose
