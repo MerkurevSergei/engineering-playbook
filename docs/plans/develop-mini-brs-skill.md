@@ -4,9 +4,9 @@
 
 - Overall status: In progress
 - Last confirmed workflow stage: WS1 — routing behavior confirmed before state-model reopening
-- Current review target: SC5 — Global Operating Rules
+- Current review target: WS1 — Initialize the Session
 - Next workflow stage: WS2 — revised draft saved but not confirmed
-- Updated: 2026-08-28
+- Updated: 2026-08-30
 
 ## Working Agreement
 
@@ -119,7 +119,7 @@ These blocks define the exact instructions that apply before and across all work
 2. SC2 — Terms and Definitions. **Confirmed and implemented.**
 3. SC3 — Interaction Modes. **Confirmed and implemented.**
 4. SC4 — Persistent State Model. **Confirmed and implemented.**
-5. SC5 — Global Operating Rules. **Draft — rules moved out of SC1 for later review.**
+5. SC5 — Global Operating Rules. **Confirmed and implemented.**
 
 ## SC1 — Activation and Scope
 
@@ -237,29 +237,29 @@ Passed — `SKILL.md` contains one Resume Point schema, persists it in `resume-p
 
 ## SC5 — Global Operating Rules
 
-Status: **Draft — rules removed from SC1 and collected here; not confirmed or implemented as one contract block.**
+Status: **Confirmed and implemented.**
 
-### Responsibility
+Implemented at: `skills/develop-mini-brs/SKILL.md` under `Global Operating Rules`.
 
-Define cross-stage operating rules that must be available after the skill triggers but do not belong to one workflow stage.
+Dependencies:
 
-### Exact Draft
-
-- Work autonomously within this skill; do not invoke another skill.
-- Use `Mini BRS` in all produced artifacts. Treat `Mini BSR` only as an activation alias.
-- Process interviews and fixed Sources through the same top-to-bottom source cycle.
-- Preserve exact Source Item text separately from interpreted or classified BRS Elements.
-- Preserve quotations from laws and approved regulations verbatim.
-- Link every BRS Element to its supporting Source Item IDs through `Based on`.
-- Preview proposed BRS changes and persist them only after explicit user confirmation.
+- SC2 defines the shared vocabulary used by the rules.
+- SC3 keeps Interaction Mode from changing exact Source Item text.
+- WS2–WS7 implement the source cycle, confirmation lifecycle, fidelity, and traceability rules.
 
 ### Acceptance Criteria
 
 - Every rule applies across multiple stages and has no narrower owner.
 - SC1 contains only purpose and trigger conditions.
-- Source fidelity and traceability rules remain enforceable across WS2–WS7.
-- Only Confirmed BRS Elements may be persisted in the Target BRS.
+- The Target BRS title identifies both its subject and document type without prescribing their order; `Mini BRS` identifies the format and workflow.
+- The rules use confirmed shared vocabulary and introduce no undefined Source variant or generic draft concept.
+- Source fidelity begins after confirmation of a Source Item block; regulatory quotation fidelity and traceability remain enforceable across WS2–WS7.
+- Every persisted BRS Element is a Confirmed BRS Element supported through `Based on`.
 - No rule duplicates the detailed algorithm of a workflow stage.
+
+### Verification Result
+
+Passed — `SKILL.md` contains the seven confirmed cross-stage rules; Target BRS titles identify their subject and document type without a fixed word order; Source fidelity starts after confirmation; regulatory quotations remain verbatim; and every BRS Element is traceable through `Based on` and persisted only after confirmation.
 
 ## Workflow Stage Map
 
